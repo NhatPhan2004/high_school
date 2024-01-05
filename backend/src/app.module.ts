@@ -18,7 +18,7 @@ import { TeacherModule } from './api/teacher/teacher.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: '144.126.211.6',
       port: 5436,
       username: 'postgres',
       password: 'postgres',
