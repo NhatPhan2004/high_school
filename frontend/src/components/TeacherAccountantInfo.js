@@ -3,118 +3,132 @@ import { TextField, Button, Box, Typography } from "@mui/material";
 import axios from "axios";
 
 export default function TeacherAccountantInfo() {
-  const [info, setInfo] = useState(
-    {
-      name : "",
-      dateOfBirth : "",
-      sex : "",
-      email : "",
-      phone : "",
-      address : "",
-      startWorking : ""
-    }
-  );
-  useEffect( () => {
-    if(JSON.parse(localStorage.getItem('user')).role == "Teacher")
-    axios({
-      method : 'get',
-      url : "http://localhost:6969/api/teacher",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
-    }).then((res) => setInfo(res.data.data.data.filter( item => item.username === JSON.parse(localStorage.getItem('user')).username)[0]));
+  const [info, setInfo] = useState({
+    name: "",
+    dateOfBirth: "",
+    sex: "",
+    email: "",
+    phone: "",
+    address: "",
+    startWorking: "",
+  });
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem("user")).role == "Teacher")
+      axios({
+        method: "get",
+        url: "http://144.126.211.6:6969/api/teacher",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res) =>
+        setInfo(
+          res.data.data.data.filter(
+            (item) =>
+              item.username ===
+              JSON.parse(localStorage.getItem("user")).username
+          )[0]
+        )
+      );
     else
-    axios({
-      method : 'get',
-      url : "http://localhost:6969/api/accountant",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
-    }).then((res) => setInfo(res.data.data.data.filter( item => item.username === JSON.parse(localStorage.getItem('user')).username)[0]));
+      axios({
+        method: "get",
+        url: "http://144.126.211.6:6969/api/accountant",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res) =>
+        setInfo(
+          res.data.data.data.filter(
+            (item) =>
+              item.username ===
+              JSON.parse(localStorage.getItem("user")).username
+          )[0]
+        )
+      );
   }, []);
   return (
     <Box
       sx={{
         "& .MuiTextField-root": { m: 1, width: "500px" },
-        width : "600px",
-        margin : "10px"
+        width: "600px",
+        margin: "10px",
       }}
       noValidate
       autoComplete="off"
     >
-      <div style={{display : "flex", justifyContent : "flex-start"}}>
-        <Typography variant = "h5" component="h5" sx = {{width : "200px"}}>
-            Họ và tên
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <Typography variant="h5" component="h5" sx={{ width: "200px" }}>
+          Họ và tên
         </Typography>
-        <Typography variant = "h5" component="h5">
-            : {info.name}
-        </Typography>
-      </div>
-
-      <div style={{display : "flex", justifyContent : "flex-start"}}>
-        <Typography variant = "h5" component="h5" sx = {{width : "200px"}}>
-            Ngày sinh
-        </Typography>
-        <Typography variant = "h5" component="h5">
-            : {info.dateOfBirth}
+        <Typography variant="h5" component="h5">
+          : {info.name}
         </Typography>
       </div>
 
-      <div style={{display : "flex", justifyContent : "flex-start"}}>
-        <Typography variant = "h5" component="h5" sx = {{width : "200px"}}>
-            Giới tính
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <Typography variant="h5" component="h5" sx={{ width: "200px" }}>
+          Ngày sinh
         </Typography>
-        <Typography variant = "h5" component="h5">
-            : {info.sex}
-        </Typography>
-      </div>
-
-      <div style={{display : "flex", justifyContent : "flex-start"}}>
-        <Typography variant = "h5" component="h5" sx = {{width : "200px"}}>
-            Email
-        </Typography>
-        <Typography variant = "h5" component="h5">
-            : {info.email}
+        <Typography variant="h5" component="h5">
+          : {info.dateOfBirth}
         </Typography>
       </div>
 
-      <div style={{display : "flex", justifyContent : "flex-start"}}>
-        <Typography variant = "h5" component="h5" sx = {{width : "200px"}}>
-            Số điện thoại
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <Typography variant="h5" component="h5" sx={{ width: "200px" }}>
+          Giới tính
         </Typography>
-        <Typography variant = "h5" component="h5">
-            : {info.phone}
-        </Typography>
-      </div>
-
-      <div style={{display : "flex", justifyContent : "flex-start"}}>
-        <Typography variant = "h5" component="h5" sx = {{width : "200px"}}>
-            Địa chỉ
-        </Typography>
-        <Typography variant = "h5" component="h5">
-            : {info.address}
+        <Typography variant="h5" component="h5">
+          : {info.sex}
         </Typography>
       </div>
 
-      <div style={{display : "flex", justifyContent : "flex-start"}}>
-        <Typography variant = "h5" component="h5" sx = {{width : "200px"}}>
-            Ngày bắt đầu làm việc
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <Typography variant="h5" component="h5" sx={{ width: "200px" }}>
+          Email
         </Typography>
-        <Typography variant = "h5" component="h5">
-            : {info.startWorking}
+        <Typography variant="h5" component="h5">
+          : {info.email}
         </Typography>
       </div>
 
-      {JSON.parse(localStorage.getItem('user')).role == "Teacher" && 
-        <div style={{display : "flex", justifyContent : "flex-start"}}>
-        <Typography variant = "h5" component="h5" sx = {{width : "200px"}}>
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <Typography variant="h5" component="h5" sx={{ width: "200px" }}>
+          Số điện thoại
+        </Typography>
+        <Typography variant="h5" component="h5">
+          : {info.phone}
+        </Typography>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <Typography variant="h5" component="h5" sx={{ width: "200px" }}>
+          Địa chỉ
+        </Typography>
+        <Typography variant="h5" component="h5">
+          : {info.address}
+        </Typography>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <Typography variant="h5" component="h5" sx={{ width: "200px" }}>
+          Ngày bắt đầu làm việc
+        </Typography>
+        <Typography variant="h5" component="h5">
+          : {info.startWorking}
+        </Typography>
+      </div>
+
+      {JSON.parse(localStorage.getItem("user")).role == "Teacher" && (
+        <div style={{ display: "flex", justifyContent: "flex-start" }}>
+          <Typography variant="h5" component="h5" sx={{ width: "200px" }}>
             Môn dạy
-        </Typography>
-        <Typography variant = "h5" component="h5">
+          </Typography>
+          <Typography variant="h5" component="h5">
             : {info.subject}
-        </Typography>
-      </div>
-      }
+          </Typography>
+        </div>
+      )}
     </Box>
   );
 }

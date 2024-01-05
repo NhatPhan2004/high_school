@@ -56,24 +56,24 @@ export default function FacilityManage() {
   ];
 
   const [rows, setRows] = useState([]);
-  useEffect( () => {
+  useEffect(() => {
     axios({
-      method : 'get',
-      url : "http://localhost:6969/api/facility",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
+      method: "get",
+      url: "http://144.126.211.6:6969/api/facility",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
     }).then((res) => setRows(res.data.data.data));
   }, []);
 
   const addFactility = (facility) => {
     axios({
-      method : 'post',
-      url : "http://localhost:6969/api/facility",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
+      method: "post",
+      url: "http://144.126.211.6:6969/api/facility",
+      headers: {
+        Authorization: localStorage.getItem("token"),
       },
-      data : facility
+      data: facility,
     }).then(() => {
       const _new_rows = [...rows];
       _new_rows.push(facility);
@@ -83,11 +83,11 @@ export default function FacilityManage() {
 
   const deleteFacility = (facility) => {
     axios({
-      method : 'delete',
-      url : "http://localhost:6969/api/facility/" + facility.id,
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
+      method: "delete",
+      url: "http://144.126.211.6:6969/api/facility/" + facility.id,
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
     }).then(() => {
       const _new_rows = rows.filter((item) => item.id !== facility.id);
       setRows(_new_rows);
@@ -96,12 +96,12 @@ export default function FacilityManage() {
 
   const modifyFacility = (facility) => {
     axios({
-      method : 'patch',
-      url : "http://localhost:6969/api/facility/" + facility.id,
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
+      method: "patch",
+      url: "http://144.126.211.6:6969/api/facility/" + facility.id,
+      headers: {
+        Authorization: localStorage.getItem("token"),
       },
-      data : facility
+      data: facility,
     }).then(() => {
       const _new_rows = rows.filter((item) => item.id !== facility.id);
       setRows([..._new_rows, facility]);
@@ -143,12 +143,11 @@ export default function FacilityManage() {
 
       <ListTable
         columns={columns}
-        rows={rows.filter(
-          (item) =>
-            item.name?.toLowerCase().includes(search.toLocaleLowerCase())
+        rows={rows.filter((item) =>
+          item.name?.toLowerCase().includes(search.toLocaleLowerCase())
         )}
         crud={Crud}
-        task = "FacilityManage"
+        task="FacilityManage"
       />
 
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>

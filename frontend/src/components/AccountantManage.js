@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ListTable from "./ListTable";
 import { useState } from "react";
-import {AccountantList} from "../mock/accountant"
+import { AccountantList } from "../mock/accountant";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import AddAccountantForm from "./AddAccountantForm";
@@ -54,25 +54,25 @@ export default function AccountantManage() {
   ];
 
   const [rows, setRows] = useState([]);
-  useEffect( () => {
+  useEffect(() => {
     axios({
-      method : 'get',
-      url : "http://localhost:6969/api/accountant",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
+      method: "get",
+      url: "http://144.126.211.6:6969/api/accountant",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
     }).then((res) => setRows(res.data.data.data));
   }, []);
 
   const addAcc = (acc) => {
     console.log(acc);
     axios({
-      method : 'post',
-      url : "http://localhost:6969/api/accountant",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
+      method: "post",
+      url: "http://144.126.211.6:6969/api/accountant",
+      headers: {
+        Authorization: localStorage.getItem("token"),
       },
-      data : acc
+      data: acc,
     }).then(() => {
       const _new_rows = [...rows];
       _new_rows.push(acc);
@@ -82,11 +82,11 @@ export default function AccountantManage() {
 
   const deleteAcc = (acc) => {
     axios({
-      method : 'delete',
-      url : "http://localhost:6969/api/accountant/" + acc.id,
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
+      method: "delete",
+      url: "http://144.126.211.6:6969/api/accountant/" + acc.id,
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
     }).then(() => {
       const _new_rows = rows.filter((item) => item.id !== acc.id);
       setRows(_new_rows);
@@ -95,12 +95,12 @@ export default function AccountantManage() {
 
   const modifyAcc = (acc) => {
     axios({
-      method : 'patch',
-      url : "http://localhost:6969/api/accountant/" + acc.id,
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
+      method: "patch",
+      url: "http://144.126.211.6:6969/api/accountant/" + acc.id,
+      headers: {
+        Authorization: localStorage.getItem("token"),
       },
-      data : acc
+      data: acc,
     }).then(() => {
       const _new_rows = rows.filter((item) => item.id !== acc.id);
       setRows([..._new_rows, acc]);
@@ -141,12 +141,11 @@ export default function AccountantManage() {
 
       <ListTable
         columns={columns}
-        rows={rows.filter(
-          (item) =>
-            item.name?.toLowerCase().includes(search.toLocaleLowerCase())
+        rows={rows.filter((item) =>
+          item.name?.toLowerCase().includes(search.toLocaleLowerCase())
         )}
         crud={crudAcc}
-        task = "AccountantManage"
+        task="AccountantManage"
       />
 
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>

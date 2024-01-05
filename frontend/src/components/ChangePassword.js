@@ -58,7 +58,7 @@ function ChangePassword() {
       if (JSON.parse(localStorage.getItem("user")).role == "Teacher")
         axios({
           method: "get",
-          url: "http://localhost:6969/api/teacher",
+          url: "http://144.126.211.6:6969/api/teacher",
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -71,7 +71,7 @@ function ChangePassword() {
 
           axios({
             method: "patch",
-            url: "http://localhost:6969/api/teacher/" + info.id,
+            url: "http://144.126.211.6:6969/api/teacher/" + info.id,
             headers: {
               Authorization: localStorage.getItem("token"),
             },
@@ -81,55 +81,55 @@ function ChangePassword() {
           });
         });
       else if (JSON.parse(localStorage.getItem("user")).role == "Accoutant")
-      axios({
-        method: "get",
-        url: "http://localhost:6969/api/accountant",
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      }).then((res) => {
-        info = res.data.data.data.filter(
-          (item) =>
-            item.username ===
-            JSON.parse(localStorage.getItem("user")).username
-        )[0];
-        
         axios({
-          method: "patch",
-          url: "http://localhost:6969/api/accountant/" + info.id,
+          method: "get",
+          url: "http://144.126.211.6:6969/api/accountant",
           headers: {
             Authorization: localStorage.getItem("token"),
           },
-          data: { ...info, password: newPassword },
-        }).then(() => {
-          navigate("/login");
+        }).then((res) => {
+          info = res.data.data.data.filter(
+            (item) =>
+              item.username ===
+              JSON.parse(localStorage.getItem("user")).username
+          )[0];
+
+          axios({
+            method: "patch",
+            url: "http://144.126.211.6:6969/api/accountant/" + info.id,
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+            data: { ...info, password: newPassword },
+          }).then(() => {
+            navigate("/login");
+          });
         });
-      });
-      else 
-      axios({
-        method: "get",
-        url: "http://localhost:6969/api/student",
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      }).then((res) => {
-        info = res.data.data.data.filter(
-          (item) =>
-            item.username ===
-            JSON.parse(localStorage.getItem("user")).username
-        )[0];
-        
+      else
         axios({
-          method: "patch",
-          url: "http://localhost:6969/api/student/" + info.id,
+          method: "get",
+          url: "http://144.126.211.6:6969/api/student",
           headers: {
             Authorization: localStorage.getItem("token"),
           },
-          data: { ...info, password: newPassword },
-        }).then(() => {
-          navigate("/login");
+        }).then((res) => {
+          info = res.data.data.data.filter(
+            (item) =>
+              item.username ===
+              JSON.parse(localStorage.getItem("user")).username
+          )[0];
+
+          axios({
+            method: "patch",
+            url: "http://144.126.211.6:6969/api/student/" + info.id,
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+            data: { ...info, password: newPassword },
+          }).then(() => {
+            navigate("/login");
+          });
         });
-      });
 
       setNewPassword("");
       setOldPassword("");

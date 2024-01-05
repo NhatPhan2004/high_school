@@ -13,9 +13,9 @@ import {
   IconButton,
 } from "@mui/material";
 // import { EditIcon, DoneIcon, RevertIcon } from "@mui/icons-material";
-import DoneIcon from '@mui/icons-material/Done';
-import EditIcon from '@mui/icons-material/Edit';
-import HistoryIcon from '@mui/icons-material/History';
+import DoneIcon from "@mui/icons-material/Done";
+import EditIcon from "@mui/icons-material/Edit";
+import HistoryIcon from "@mui/icons-material/History";
 import axios from "axios";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const createData = (row) => ({
   ...row,
-  isEditMode: false
+  isEditMode: false,
 });
 
 const CustomTableCell = ({ row, name, onChange }) => {
@@ -49,7 +49,7 @@ const CustomTableCell = ({ row, name, onChange }) => {
   const { isEditMode } = row;
   return (
     <TableCell align="left" className={classes.tableCell}>
-      {isEditMode && name === "salary"  ? (
+      {isEditMode && name === "salary" ? (
         <Input
           value={row[name]}
           name={name}
@@ -64,16 +64,17 @@ const CustomTableCell = ({ row, name, onChange }) => {
 };
 
 export default function SalaryManager() {
-  const [rows, setRows] = React.useState(TeacherList.map( (row) => createData(row)) );
-  useEffect( () => {
+  const [rows, setRows] = React.useState(
+    TeacherList.map((row) => createData(row))
+  );
+  useEffect(() => {
     axios({
-      method : 'get',
-      url : "http://localhost:6969/api/teacher",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
-    }).then(
-      (res) => setRows(res.data.data.data.map( (row) => createData(row))));
+      method: "get",
+      url: "http://144.126.211.6:6969/api/teacher",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    }).then((res) => setRows(res.data.data.data.map((row) => createData(row))));
   }, []);
 
   const classes = useStyles();
@@ -82,20 +83,18 @@ export default function SalaryManager() {
     setRows((state) => {
       return rows.map((row) => {
         if (row.id === id) {
-          console.log("isEditMode: ", row.isEditMode)
-          if(row.isEditMode === true){
+          console.log("isEditMode: ", row.isEditMode);
+          if (row.isEditMode === true) {
             axios({
-              method : 'patch',
-              url : "http://localhost:6969/api/teacher/" + row.id,
-              headers : {
-                "Authorization" : localStorage.getItem("token"),
+              method: "patch",
+              url: "http://144.126.211.6:6969/api/teacher/" + row.id,
+              headers: {
+                Authorization: localStorage.getItem("token"),
               },
-              data : row
-            }).then(() => {
-              
-            });
+              data: row,
+            }).then(() => {});
             return { ...row, isEditMode: !row.isEditMode };
-          }else{
+          } else {
             return { ...row, isEditMode: !row.isEditMode };
           }
         }
@@ -120,7 +119,6 @@ export default function SalaryManager() {
   return (
     <Paper className={classes.root}>
       <Table className={classes.table} aria-label="caption table">
-
         <TableHead>
           <TableRow>
             <TableCell align="left" />

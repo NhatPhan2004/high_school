@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import {StudentScores} from "../mock/student-score";
-import axios from "axios"
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { StudentScores } from "../mock/student-score";
+import axios from "axios";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -20,41 +20,44 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
 
-
 export default function StudentScoreTable() {
   const [rows, setRows] = React.useState([]);
-  React.useEffect(()=>{
+  React.useEffect(() => {
     axios({
-      method : 'get',
-      url : "http://localhost:6969/api/student",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
+      method: "get",
+      url: "http://144.126.211.6:6969/api/student",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
     }).then((res) => {
-        var _info = res.data.data.data.filter( item => item.username === JSON.parse(localStorage.getItem('user') ).username)[0];
-        console.log("Info: ",_info)
-        axios({
-          method : 'get',
-          url : "http://localhost:6969/api/score/listScoreOfStudent/{studentId}?studentId=" + _info.id,
-          headers : {
-            "Authorization" : localStorage.getItem("token"),
-          }
-        }).then((response) => {
-            console.log("Student score",response.data.data[0]);
-            setRows(response.data.data[0]);
-        });
-        
+      var _info = res.data.data.data.filter(
+        (item) =>
+          item.username === JSON.parse(localStorage.getItem("user")).username
+      )[0];
+      console.log("Info: ", _info);
+      axios({
+        method: "get",
+        url:
+          "http://144.126.211.6:6969/api/score/listScoreOfStudent/{studentId}?studentId=" +
+          _info.id,
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((response) => {
+        console.log("Student score", response.data.data[0]);
+        setRows(response.data.data[0]);
+      });
     });
-  },[])
+  }, []);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">

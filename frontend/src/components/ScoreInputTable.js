@@ -93,28 +93,28 @@ export default function ScoreInputTable() {
         if (row.studentId === id) {
           if (row.isEditMode === true) {
             if (row.scoreId === "") {
-              if (row.score15m1 === "") row.score15m1 = null
+              if (row.score15m1 === "") row.score15m1 = null;
               else row.score15m1 = parseInt(row.score15m1);
 
-              if (row.score15m2 === "") row.score15m2= null;
+              if (row.score15m2 === "") row.score15m2 = null;
               else row.score15m2 = parseInt(row.score15m2);
 
-              if (row.score15m3 === "") row.score15m3= null;
+              if (row.score15m3 === "") row.score15m3 = null;
               else row.score15m3 = parseInt(row.score15m3);
 
-              if (row.score45m1 === "") row.score45m1= null;
+              if (row.score45m1 === "") row.score45m1 = null;
               else row.score45m1 = parseInt(row.score45m1);
 
-              if (row.score45m2 === "") row.score45m2= null;
+              if (row.score45m2 === "") row.score45m2 = null;
               else row.score45m2 = parseInt(row.score45m2);
 
-              if (row.score90m === "") row.score90m= null;
+              if (row.score90m === "") row.score90m = null;
               else row.score90m = parseInt(row.score90m);
 
               console.log("Row: " + row);
               axios({
                 method: "post",
-                url: "http://localhost:6969/api/score",
+                url: "http://144.126.211.6:6969/api/score",
                 headers: {
                   Authorization: localStorage.getItem("token"),
                 },
@@ -125,19 +125,19 @@ export default function ScoreInputTable() {
               return { ...row, isEditMode: !row.isEditMode };
             } else {
               var _row = JSON.parse(JSON.stringify(row));
-              if (row.score15m1 === "") row.score15m1 = null
+              if (row.score15m1 === "") row.score15m1 = null;
               else row.score15m1 = parseInt(row.score15m1);
 
-              if (row.score15m2 === "") row.score15m2= null;
+              if (row.score15m2 === "") row.score15m2 = null;
               else row.score15m2 = parseInt(row.score15m2);
 
-              if (row.score15m3 === "") row.score15m3= null;
+              if (row.score15m3 === "") row.score15m3 = null;
               else row.score15m3 = parseInt(row.score15m3);
 
-              if (row.score45m1 === "") row.score45m1= null;
+              if (row.score45m1 === "") row.score45m1 = null;
               else row.score45m1 = parseInt(row.score45m1);
 
-              if (row.score45m2 === "") row.score45m2= null;
+              if (row.score45m2 === "") row.score45m2 = null;
               else row.score45m2 = parseInt(row.score45m2);
 
               if (row.score90m === "") row.score90m = null;
@@ -146,7 +146,7 @@ export default function ScoreInputTable() {
               console.log("Row: " + row.data);
               axios({
                 method: "patch",
-                url: "http://localhost:6969/api/score/" + row.scoreId,
+                url: "http://144.126.211.6:6969/api/score/" + row.scoreId,
                 headers: {
                   Authorization: localStorage.getItem("token"),
                 },
@@ -183,7 +183,7 @@ export default function ScoreInputTable() {
     if (event.target.value !== "")
       axios({
         method: "get",
-        url: "http://localhost:6969/api/student/" + event.target.value,
+        url: "http://144.126.211.6:6969/api/student/" + event.target.value,
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -206,7 +206,7 @@ export default function ScoreInputTable() {
         axios({
           method: "get",
           url:
-            "http://localhost:6969/api/score/listScoreOfOneSubject?classId=" +
+            "http://144.126.211.6:6969/api/score/listScoreOfOneSubject?classId=" +
             event.target.value +
             "&subject=" +
             _infoTeacher.subject,
@@ -228,14 +228,14 @@ export default function ScoreInputTable() {
           setRows(_students.map((st) => createData(st)));
         });
       });
-    
+
     setClassId(event.target.value);
   };
 
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://localhost:6969/api/teacher",
+      url: "http://144.126.211.6:6969/api/teacher",
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -247,7 +247,7 @@ export default function ScoreInputTable() {
       axios({
         method: "get",
         url:
-          "http://localhost:6969/api/class/listClassOfTeacher/" +
+          "http://144.126.211.6:6969/api/class/listClassOfTeacher/" +
           _infoTeacher.id,
         headers: {
           Authorization: localStorage.getItem("token"),
@@ -334,7 +334,7 @@ export default function ScoreInputTable() {
                       axios({
                         method: "get",
                         url:
-                          "http://localhost:6969/api/score/averageScore?id=" +
+                          "http://144.126.211.6:6969/api/score/averageScore?id=" +
                           row.scoreId,
                         headers: {
                           Authorization: localStorage.getItem("token"),

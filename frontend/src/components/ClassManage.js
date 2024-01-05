@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ClassList } from "../mock/class";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import {Select, MenuItem} from "@mui/material"
+import { Select, MenuItem } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import FilterStudent from "./FilterStudent";
 import AddClassForm from "./AddClassForm";
@@ -44,27 +44,27 @@ export default function ClassManage() {
   ];
 
   const [rows, setRows] = useState([]);
-  useEffect( () => {
+  useEffect(() => {
     axios({
-      method : 'get',
-      url : "http://localhost:6969/api/class",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
+      method: "get",
+      url: "http://144.126.211.6:6969/api/class",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
     }).then((res) => {
       setRows(res.data.data.data);
-    } );
+    });
   }, []);
 
   const addClass = (classItem) => {
     console.log(classItem);
     axios({
-      method : 'post',
-      url : "http://localhost:6969/api/class",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
+      method: "post",
+      url: "http://144.126.211.6:6969/api/class",
+      headers: {
+        Authorization: localStorage.getItem("token"),
       },
-      data : classItem
+      data: classItem,
     }).then(() => {
       const _new_rows = [...rows];
       _new_rows.push(classItem);
@@ -74,11 +74,11 @@ export default function ClassManage() {
 
   const deleteClass = (classItem) => {
     axios({
-      method : 'delete',
-      url : "http://localhost:6969/api/class/" + classItem.id,
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
+      method: "delete",
+      url: "http://144.126.211.6:6969/api/class/" + classItem.id,
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
     }).then(() => {
       const _new_rows = rows.filter((item) => item.id !== classItem.id);
       setRows(_new_rows);
@@ -87,12 +87,12 @@ export default function ClassManage() {
 
   const modifyClass = (classItem) => {
     axios({
-      method : 'patch',
-      url : "http://localhost:6969/api/class/" + classItem.id,
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
+      method: "patch",
+      url: "http://144.126.211.6:6969/api/class/" + classItem.id,
+      headers: {
+        Authorization: localStorage.getItem("token"),
       },
-      data : classItem
+      data: classItem,
     }).then(() => {
       const _new_rows = rows.filter((item) => item.id !== classItem.id);
       setRows([..._new_rows, classItem]);
@@ -130,17 +130,21 @@ export default function ClassManage() {
       }}
     >
       <Box sx={{ display: "flex", margin: "10px" }}>
-        <FilterStudent SetGradeFilter={SetGradeFilter} SetClassFilter={SetClassFilter} />
+        <FilterStudent
+          SetGradeFilter={SetGradeFilter}
+          SetClassFilter={SetClassFilter}
+        />
       </Box>
 
       <ListClassTable
         columns={columns}
         rows={rows.filter(
           (item) =>
-            item.name?.toLowerCase().includes(gradeFilter.toLocaleLowerCase())
-            && item.name?.toLowerCase().includes(classFilter.toLocaleLowerCase())
-        )
-        }
+            item.name
+              ?.toLowerCase()
+              .includes(gradeFilter.toLocaleLowerCase()) &&
+            item.name?.toLowerCase().includes(classFilter.toLocaleLowerCase())
+        )}
         crud={Crud}
       />
 

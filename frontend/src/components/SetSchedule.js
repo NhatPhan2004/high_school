@@ -95,7 +95,7 @@ export default function SetSchedule({ classId }) {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://localhost:6969/api/class/timetable/" + classId,
+      url: "http://144.126.211.6:6969/api/class/timetable/" + classId,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -103,23 +103,21 @@ export default function SetSchedule({ classId }) {
       schedule = res.data.data;
       console.log("schedule: ", schedule);
       console.log("Schedule Length: ", schedule.length);
-      if (schedule.length > 0){
+      if (schedule.length > 0) {
         console.log(222, Object.keys(schedule).sort());
-        const ordered = Object.keys(schedule).sort().reduce(
-          (obj, key) => { 
-            obj[key] = schedule[key]; 
+        const ordered = Object.keys(schedule)
+          .sort()
+          .reduce((obj, key) => {
+            obj[key] = schedule[key];
             return obj;
-          }, 
-          []
-        );
+          }, []);
 
         setRows(ordered.map((row) => createData(row)));
-      }
-      else {
+      } else {
         for (var i = 0; i < defaultSchedule().length; i++) {
           axios({
             method: "post",
-            url: "http://localhost:6969/api/class/timetable",
+            url: "http://144.126.211.6:6969/api/class/timetable",
             headers: {
               Authorization: localStorage.getItem("token"),
             },
@@ -139,7 +137,7 @@ export default function SetSchedule({ classId }) {
           if (row.isEditMode === true) {
             axios({
               method: "patch",
-              url: "http://localhost:6969/api/class/timetable/" + classId,
+              url: "http://144.126.211.6:6969/api/class/timetable/" + classId,
               headers: {
                 Authorization: localStorage.getItem("token"),
               },

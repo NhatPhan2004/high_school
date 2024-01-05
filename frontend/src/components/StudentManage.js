@@ -65,51 +65,54 @@ export default function StudentManage() {
 
   const [rows, setRows] = useState([]);
 
-  useEffect( () => {
+  useEffect(() => {
     axios({
-      method : 'get',
-      url : "http://localhost:6969/api/class",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
+      method: "get",
+      url: "http://144.126.211.6:6969/api/class",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
     }).then((resClasses) => {
       classes = resClasses.data.data.data;
       axios({
-        method : 'get',
-        url : "http://localhost:6969/api/student",
-        headers : {
-          "Authorization" : localStorage.getItem("token"),
-        }
+        method: "get",
+        url: "http://144.126.211.6:6969/api/student",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
       }).then((res) => {
         var _rows = res.data.data.data;
-        for(var i = 0; i < _rows.length; i++){
-          _rows[i].class = classes.filter((cl) => cl.id === _rows[i].classId)[0].name;
+        for (var i = 0; i < _rows.length; i++) {
+          _rows[i].class = classes.filter(
+            (cl) => cl.id === _rows[i].classId
+          )[0].name;
         }
         setRows(_rows);
-      })});
+      });
+    });
   }, []);
 
   const addStudent = (student) => {
     axios({
-      method : 'post',
-      url : "http://localhost:6969/api/student",
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
+      method: "post",
+      url: "http://144.126.211.6:6969/api/student",
+      headers: {
+        Authorization: localStorage.getItem("token"),
       },
-      data : student
+      data: student,
     }).then(() => {
-      console.log('1');
-      student.class = classes.filter(cl => cl.id === student.classId)[0].name
+      console.log("1");
+      student.class = classes.filter((cl) => cl.id === student.classId)[0].name;
       setRows([...rows, student]);
     });
   };
   const deleteStudent = (student) => {
     axios({
-      method : 'delete',
-      url : "http://localhost:6969/api/student/" + student.id,
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
-      }
+      method: "delete",
+      url: "http://144.126.211.6:6969/api/student/" + student.id,
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
     }).then(() => {
       const _new_rows = rows.filter((item) => item.id !== student.id);
       setRows(_new_rows);
@@ -117,21 +120,21 @@ export default function StudentManage() {
   };
 
   const modifyStudent = (student) => {
-    console.log("Modify student", student)
+    console.log("Modify student", student);
     axios({
-      method : 'patch',
-      url : "http://localhost:6969/api/student/" + student.id,
-      headers : {
-        "Authorization" : localStorage.getItem("token"),
+      method: "patch",
+      url: "http://144.126.211.6:6969/api/student/" + student.id,
+      headers: {
+        Authorization: localStorage.getItem("token"),
       },
-      data : student
+      data: student,
     }).then(() => {
       const _new_rows = rows.filter((item) => item.id !== student.id);
-      student.class = classes.filter(cl => cl.id === student.classId)[0].name;
+      student.class = classes.filter((cl) => cl.id === student.classId)[0].name;
       setRows([..._new_rows, student]);
     });
   };
-  
+
   const CrudStudent = (status, student) => {
     switch (status) {
       case "Add":
@@ -164,7 +167,10 @@ export default function StudentManage() {
     >
       <Box sx={{ display: "flex", margin: "10px" }}>
         <Searchbar search={search} SetSearch={SetSearch} />
-        <FilterStudent SetGradeFilter={SetGradeFilter} SetClassFilter={SetClassFilter} />
+        <FilterStudent
+          SetGradeFilter={SetGradeFilter}
+          SetClassFilter={SetClassFilter}
+        />
       </Box>
       <ListTable
         columns={columns}
@@ -177,8 +183,8 @@ export default function StudentManage() {
             item.class?.toLowerCase().includes(classFilter.toLocaleLowerCase())
         )}
         crudStudent={CrudStudent}
-        task = "StudentManage"
-        classes = {classes}
+        task="StudentManage"
+        classes={classes}
       />
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
@@ -202,7 +208,7 @@ export default function StudentManage() {
             sx={style}
             crudStudent={CrudStudent}
             closeAddStudent={handleCloseAdd}
-            classes = {classes}
+            classes={classes}
             status="Add"
             info=""
           />

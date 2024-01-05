@@ -40,9 +40,11 @@ function LoginForm(props) {
   };
   const navigate = useNavigate();
   // Connect db
-  const headers = {'Content-Type':'application/json',
-                    'Access-Control-Allow-Origin':'*',
-                    'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS'}
+  const headers = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST,PATCH,OPTIONS",
+  };
   const handeSubmit = async (event) => {
     event.preventDefault();
     var data = {
@@ -50,9 +52,8 @@ function LoginForm(props) {
       password: password,
       role: role,
     };
-    axios.post("http://localhost:6969/api/auth/login", data
-      ).then(res => {
-      localStorage.setItem("token", "Bearer "+ res.data.accessToken);
+    axios.post("http://144.126.211.6:6969/api/auth/login", data).then((res) => {
+      localStorage.setItem("token", "Bearer " + res.data.accessToken);
       localStorage.setItem("user", JSON.stringify(data));
       console.log(res.data);
       // userContext.setUser((prev) => ({

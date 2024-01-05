@@ -29,7 +29,7 @@ export default function TeacherAssign({ classId, close }) {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://localhost:6969/api/teacher",
+      url: "http://144.126.211.6:6969/api/teacher",
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -38,17 +38,18 @@ export default function TeacherAssign({ classId, close }) {
       console.log("TeacherList: ", TeacherList);
       axios({
         method: "get",
-        url: "http://localhost:6969/api/class/classTeacher/" + classId,
+        url: "http://144.126.211.6:6969/api/class/classTeacher/" + classId,
         headers: {
           Authorization: localStorage.getItem("token"),
         },
       }).then((response) => {
         let classTeachers = response.data.data;
-        console.log("classTeachers : ", classTeachers )
+        console.log("classTeachers : ", classTeachers);
         let _teachers = {};
-        if(Object.keys(classTeachers).length > 0) 
-          for (const item in classTeachers){
-              _teachers[classTeachers[item].subject] = classTeachers[item].teacherId;
+        if (Object.keys(classTeachers).length > 0)
+          for (const item in classTeachers) {
+            _teachers[classTeachers[item].subject] =
+              classTeachers[item].teacherId;
           }
         console.log("Teachers: ", _teachers);
         setTeachers(_teachers);
@@ -240,26 +241,21 @@ export default function TeacherAssign({ classId, close }) {
         classId: classId,
       },
     };
-    console.log(o)
+    console.log(o);
 
-      axios({
-        method : 'post',
-        url : "http://localhost:6969/api/class/assignClassTeacher",
-        headers : {
-          "Authorization" : localStorage.getItem("token"),
-        },
-        data : o
-      }).then(() => {
-        close();
-      });
+    axios({
+      method: "post",
+      url: "http://144.126.211.6:6969/api/class/assignClassTeacher",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+      data: o,
+    }).then(() => {
+      close();
+    });
   };
   return (
-    <Box
-    component="form"
-    onSubmit={handleSubmit}
-    noValidate
-    autoComplete="off"
-    >
+    <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off">
       <Box
         autoComplete="off"
         sx={{
