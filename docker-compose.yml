@@ -65,7 +65,7 @@ services:
       volumes:
         - ./frontend/build:/resource/public
         - ./nginx.conf:/etc/nginx/conf.d
-        - ${SSL_PATH}:/resource/ssl
+        # - ${SSL_PATH}:/resource/ssl
       networks:
           - high_school
       ports:
