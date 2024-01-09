@@ -11,6 +11,7 @@ import AddClassForm from "./AddClassForm";
 import TeacherAssign from "./TeacherAssign";
 import { useEffect } from "react";
 import axios from "axios";
+import { configs } from "../config";
 
 const style = {
   position: "absolute",
@@ -47,7 +48,7 @@ export default function ClassManage() {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/class",
+      url: `${configs.backendUrl}/api/class`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -60,7 +61,7 @@ export default function ClassManage() {
     console.log(classItem);
     axios({
       method: "post",
-      url: "http://144.126.211.6:6969/api/class",
+      url: `${configs.backendUrl}/api/class`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -75,7 +76,7 @@ export default function ClassManage() {
   const deleteClass = (classItem) => {
     axios({
       method: "delete",
-      url: "http://144.126.211.6:6969/api/class/" + classItem.id,
+      url: `${configs.backendUrl}/api/class/` + classItem.id,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -88,7 +89,7 @@ export default function ClassManage() {
   const modifyClass = (classItem) => {
     axios({
       method: "patch",
-      url: "http://144.126.211.6:6969/api/class/" + classItem.id,
+      url: `${configs.backendUrl}/api/class/` + classItem.id,
       headers: {
         Authorization: localStorage.getItem("token"),
       },

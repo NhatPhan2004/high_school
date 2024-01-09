@@ -22,6 +22,8 @@ import DoneIcon from "@mui/icons-material/Done";
 import EditIcon from "@mui/icons-material/Edit";
 import HistoryIcon from "@mui/icons-material/History";
 import axios from "axios";
+import { configs } from "../config";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -114,7 +116,7 @@ export default function ScoreInputTable() {
               console.log("Row: " + row);
               axios({
                 method: "post",
-                url: "http://144.126.211.6:6969/api/score",
+                url: `${configs.backendUrl}/api/score`,
                 headers: {
                   Authorization: localStorage.getItem("token"),
                 },
@@ -146,7 +148,7 @@ export default function ScoreInputTable() {
               console.log("Row: " + row.data);
               axios({
                 method: "patch",
-                url: "http://144.126.211.6:6969/api/score/" + row.scoreId,
+                url: `${configs.backendUrl}/api/score/` + row.scoreId,
                 headers: {
                   Authorization: localStorage.getItem("token"),
                 },
@@ -183,7 +185,7 @@ export default function ScoreInputTable() {
     if (event.target.value !== "")
       axios({
         method: "get",
-        url: "http://144.126.211.6:6969/api/student/" + event.target.value,
+        url: `${configs.backendUrl}/api/student/` + event.target.value,
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -206,7 +208,7 @@ export default function ScoreInputTable() {
         axios({
           method: "get",
           url:
-            "http://144.126.211.6:6969/api/score/listScoreOfOneSubject?classId=" +
+            `${configs.backendUrl}/api/score/listScoreOfOneSubject?classId=` +
             event.target.value +
             "&subject=" +
             _infoTeacher.subject,
@@ -235,7 +237,7 @@ export default function ScoreInputTable() {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/teacher",
+      url: `${configs.backendUrl}/api/teacher`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -247,8 +249,7 @@ export default function ScoreInputTable() {
       axios({
         method: "get",
         url:
-          "http://144.126.211.6:6969/api/class/listClassOfTeacher/" +
-          _infoTeacher.id,
+          `${configs.backendUrl}/api/class/listClassOfTeacher/` + _infoTeacher.id,
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -334,7 +335,7 @@ export default function ScoreInputTable() {
                       axios({
                         method: "get",
                         url:
-                          "http://144.126.211.6:6969/api/score/averageScore?id=" +
+                          `${configs.backendUrl}/api/score/averageScore?id=` +
                           row.scoreId,
                         headers: {
                           Authorization: localStorage.getItem("token"),

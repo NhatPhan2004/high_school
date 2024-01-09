@@ -40,8 +40,8 @@ export class ScoreService {
       // });
       score.schoolYear = createScoreDto.schoolYear;
       score.semester = createScoreDto.semester;
-      score.startTimeCalculationScore = startTimeCalScore;
-      score.endTimeCalculationScore = endTimeCalScore;
+      score.startTimeCalculationScore = Number(startTimeCalScore);
+      score.endTimeCalculationScore = Number(endTimeCalScore);
       score.score15m1 = createScoreDto.score15m1;
       score.score15m2 = createScoreDto.score15m2;
       score.score15m3 = createScoreDto.score15m3;
@@ -65,7 +65,9 @@ export class ScoreService {
         where: { id: updateScoreDto.id },
       });
       console.log('score1', score);
-      if (score.endTimeCalculationScore < Math.floor(new Date().getTime())) {
+      if (
+        Number(score.endTimeCalculationScore) < Math.floor(new Date().getTime())
+      ) {
         throw new BadRequestException('Time over to enter score');
       }
       if (updateScoreDto.score15m1 > 10 || updateScoreDto.score15m1 < 0) {

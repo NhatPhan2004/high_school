@@ -1,14 +1,14 @@
-import { Body, Controller, Res, Post } from '@nestjs/common';
+import { Body, Controller, Res, Post, Get } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginDto, AdminRegisterDto } from './auth.dto';
 
 @ApiTags('Auth')
-@Controller('api/auth')
+@Controller('')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('createAdmin')
+  @Post('api/auth/createAdmin')
   @ApiResponse({ status: 201, description: 'Ok' })
   @ApiResponse({ status: 400, description: 'Bad request' })
   public async adminRegister(
@@ -23,7 +23,7 @@ export class AuthController {
     }
   }
 
-  @Post('login')
+  @Post('api/auth/login')
   @ApiResponse({ status: 201, description: 'Ok' })
   @ApiResponse({ status: 400, description: 'Bad request' })
   public async Login(@Body() loginDto: LoginDto, @Res() res) {
@@ -33,5 +33,12 @@ export class AuthController {
     } catch (error) {
       throw error;
     }
+  }
+
+  @Get()
+  @ApiResponse({ status: 201, description: 'Ok' })
+  @ApiResponse({ status: 400, description: 'Bad request' })
+  public async healhCheck(@Body() loginDto: LoginDto, @Res() res) {
+    res.json('OK');
   }
 }

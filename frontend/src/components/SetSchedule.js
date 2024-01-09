@@ -19,6 +19,8 @@ import {
 import DoneIcon from "@mui/icons-material/Done";
 import EditIcon from "@mui/icons-material/Edit";
 import HistoryIcon from "@mui/icons-material/History";
+import { configs } from "../config";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -95,7 +97,7 @@ export default function SetSchedule({ classId }) {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/class/timetable/" + classId,
+      url: `${configs.backendUrl}/api/class/timetable/` + classId,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -117,7 +119,7 @@ export default function SetSchedule({ classId }) {
         for (var i = 0; i < defaultSchedule().length; i++) {
           axios({
             method: "post",
-            url: "http://144.126.211.6:6969/api/class/timetable",
+            url: `${configs.backendUrl}/api/class/timetable`,
             headers: {
               Authorization: localStorage.getItem("token"),
             },
@@ -137,7 +139,7 @@ export default function SetSchedule({ classId }) {
           if (row.isEditMode === true) {
             axios({
               method: "patch",
-              url: "http://144.126.211.6:6969/api/class/timetable/" + classId,
+              url: `${configs.backendUrl}/api/class/timetable/` + classId,
               headers: {
                 Authorization: localStorage.getItem("token"),
               },

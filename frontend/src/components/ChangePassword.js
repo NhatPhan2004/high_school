@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 // import jwtDecode from "jwt-decode";
 import { UserContext } from "../context/UserContext";
 import axios from "axios";
+import { configs } from "../config";
+
 function ChangePassword() {
   const { user, setUser } = React.useContext(UserContext);
   const [oldPassword, setOldPassword] = useState("");
@@ -58,7 +60,7 @@ function ChangePassword() {
       if (JSON.parse(localStorage.getItem("user")).role == "Teacher")
         axios({
           method: "get",
-          url: "http://144.126.211.6:6969/api/teacher",
+          url: `${configs.backendUrl}/api/teacher`,
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -71,7 +73,7 @@ function ChangePassword() {
 
           axios({
             method: "patch",
-            url: "http://144.126.211.6:6969/api/teacher/" + info.id,
+            url: `${configs.backendUrl}/api/teacher/` + info.id,
             headers: {
               Authorization: localStorage.getItem("token"),
             },
@@ -83,7 +85,7 @@ function ChangePassword() {
       else if (JSON.parse(localStorage.getItem("user")).role == "Accoutant")
         axios({
           method: "get",
-          url: "http://144.126.211.6:6969/api/accountant",
+          url: `${configs.backendUrl}/api/accountant`,
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -96,7 +98,7 @@ function ChangePassword() {
 
           axios({
             method: "patch",
-            url: "http://144.126.211.6:6969/api/accountant/" + info.id,
+            url: `${configs.backendUrl}/api/accountant/` + info.id,
             headers: {
               Authorization: localStorage.getItem("token"),
             },
@@ -108,7 +110,7 @@ function ChangePassword() {
       else
         axios({
           method: "get",
-          url: "http://144.126.211.6:6969/api/student",
+          url: `${configs.backendUrl}/api/student`,
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -121,7 +123,7 @@ function ChangePassword() {
 
           axios({
             method: "patch",
-            url: "http://144.126.211.6:6969/api/student/" + info.id,
+            url: `${configs.backendUrl}/api/student/` + info.id,
             headers: {
               Authorization: localStorage.getItem("token"),
             },

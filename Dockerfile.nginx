@@ -1,0 +1,20 @@
+# Use the official Nginx base image
+FROM nginx:1.23.3
+
+# Copy Nginx configuration file
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+# COPY /app/build /usr/share/nginx/html
+
+# RUN apk add fcgi
+RUN mkdir /resource
+RUN mkdir /resource/ssl
+RUN mkdir /resource/public
+WORKDIR /resource
+
+
+# Expose  80 443
+EXPOSE  80 443
+
+# Command to run Nginx in the foreground
+# CMD ["nginx", "-g", "daemon off;"]

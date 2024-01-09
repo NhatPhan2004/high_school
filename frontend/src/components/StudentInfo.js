@@ -3,6 +3,8 @@ import { TextField, Button, Box, Typography, Divider } from "@mui/material";
 import { studentList } from "../mock/student";
 import axios from "axios";
 import { useEffect } from "react";
+import { configs } from "../config";
+
 export default function StudentInfo() {
   const [info, setInfo] = useState({
     name: "",
@@ -28,14 +30,14 @@ export default function StudentInfo() {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/class",
+      url: `${configs.backendUrl}/api/class`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
     }).then((resClasses) => {
       axios({
         method: "get",
-        url: "http://144.126.211.6:6969/api/student",
+        url: `${configs.backendUrl}/api/student`,
         headers: {
           Authorization: localStorage.getItem("token"),
         },

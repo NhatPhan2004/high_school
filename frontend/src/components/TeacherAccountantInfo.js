@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import axios from "axios";
+import { configs } from "../config";
 
 export default function TeacherAccountantInfo() {
   const [info, setInfo] = useState({
@@ -16,7 +17,7 @@ export default function TeacherAccountantInfo() {
     if (JSON.parse(localStorage.getItem("user")).role == "Teacher")
       axios({
         method: "get",
-        url: "http://144.126.211.6:6969/api/teacher",
+        url: `${configs.backendUrl}/api/teacher`,
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -32,7 +33,7 @@ export default function TeacherAccountantInfo() {
     else
       axios({
         method: "get",
-        url: "http://144.126.211.6:6969/api/accountant",
+        url: `${configs.backendUrl}/api/accountant`,
         headers: {
           Authorization: localStorage.getItem("token"),
         },

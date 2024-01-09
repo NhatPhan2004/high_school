@@ -10,6 +10,7 @@ import Searchbar from "./Search";
 import FilterStudent from "./FilterStudent";
 import { useEffect } from "react";
 import axios from "axios";
+import { configs } from "../config";
 
 const style = {
   position: "absolute",
@@ -68,7 +69,7 @@ export default function StudentManage() {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/class",
+      url: `${configs.backendUrl}/api/class`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -76,7 +77,7 @@ export default function StudentManage() {
       classes = resClasses.data.data.data;
       axios({
         method: "get",
-        url: "http://144.126.211.6:6969/api/student",
+        url: `${configs.backendUrl}/api/student`,
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -95,7 +96,7 @@ export default function StudentManage() {
   const addStudent = (student) => {
     axios({
       method: "post",
-      url: "http://144.126.211.6:6969/api/student",
+      url: `${configs.backendUrl}/api/student`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -109,7 +110,7 @@ export default function StudentManage() {
   const deleteStudent = (student) => {
     axios({
       method: "delete",
-      url: "http://144.126.211.6:6969/api/student/" + student.id,
+      url: `${configs.backendUrl}/api/student/` + student.id,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -123,7 +124,7 @@ export default function StudentManage() {
     console.log("Modify student", student);
     axios({
       method: "patch",
-      url: "http://144.126.211.6:6969/api/student/" + student.id,
+      url: `${configs.backendUrl}/api/student/` + student.id,
       headers: {
         Authorization: localStorage.getItem("token"),
       },

@@ -8,6 +8,7 @@ import AddAccountantForm from "./AddAccountantForm";
 import Modal from "@mui/material/Modal";
 import Searchbar from "./Search";
 import axios from "axios";
+import {configs} from "../config";
 
 const style = {
   position: "absolute",
@@ -57,7 +58,7 @@ export default function AccountantManage() {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/accountant",
+      url: `${configs.backendUrl}/api/accountant`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -68,7 +69,7 @@ export default function AccountantManage() {
     console.log(acc);
     axios({
       method: "post",
-      url: "http://144.126.211.6:6969/api/accountant",
+      url: `${configs.backendUrl}/api/accountant`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -83,7 +84,7 @@ export default function AccountantManage() {
   const deleteAcc = (acc) => {
     axios({
       method: "delete",
-      url: "http://144.126.211.6:6969/api/accountant/" + acc.id,
+      url: `${configs.backendUrl}/api/accountant/` + acc.id,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -96,7 +97,7 @@ export default function AccountantManage() {
   const modifyAcc = (acc) => {
     axios({
       method: "patch",
-      url: "http://144.126.211.6:6969/api/accountant/" + acc.id,
+      url: `${configs.backendUrl}/api/accountant/` + acc.id,
       headers: {
         Authorization: localStorage.getItem("token"),
       },

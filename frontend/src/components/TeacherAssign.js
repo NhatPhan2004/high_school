@@ -6,6 +6,8 @@ import Select from "@mui/material/Select";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { configs } from "../config";
+
 let TeacherList = [];
 const subjects = [
   "Chủ nhiệm",
@@ -29,7 +31,7 @@ export default function TeacherAssign({ classId, close }) {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/teacher",
+      url: `${configs.backendUrl}/api/teacher`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -38,7 +40,7 @@ export default function TeacherAssign({ classId, close }) {
       console.log("TeacherList: ", TeacherList);
       axios({
         method: "get",
-        url: "http://144.126.211.6:6969/api/class/classTeacher/" + classId,
+        url: `${configs.backendUrl}/api/class/classTeacher/` + classId,
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -245,7 +247,7 @@ export default function TeacherAssign({ classId, close }) {
 
     axios({
       method: "post",
-      url: "http://144.126.211.6:6969/api/class/assignClassTeacher",
+      url: `${configs.backendUrl}/api/class/assignClassTeacher`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },

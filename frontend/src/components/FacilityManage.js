@@ -9,6 +9,7 @@ import Modal from "@mui/material/Modal";
 import Searchbar from "./Search";
 import { useEffect } from "react";
 import axios from "axios";
+import { configs } from "../config";
 
 const style = {
   position: "absolute",
@@ -59,7 +60,7 @@ export default function FacilityManage() {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/facility",
+      url: `${configs.backendUrl}/api/facility`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -69,7 +70,7 @@ export default function FacilityManage() {
   const addFactility = (facility) => {
     axios({
       method: "post",
-      url: "http://144.126.211.6:6969/api/facility",
+      url: `${configs.backendUrl}/api/facility`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -84,7 +85,7 @@ export default function FacilityManage() {
   const deleteFacility = (facility) => {
     axios({
       method: "delete",
-      url: "http://144.126.211.6:6969/api/facility/" + facility.id,
+      url: `${configs.backendUrl}/api/facility/` + facility.id,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -97,7 +98,7 @@ export default function FacilityManage() {
   const modifyFacility = (facility) => {
     axios({
       method: "patch",
-      url: "http://144.126.211.6:6969/api/facility/" + facility.id,
+      url: `${configs.backendUrl}/api/facility/` + facility.id,
       headers: {
         Authorization: localStorage.getItem("token"),
       },

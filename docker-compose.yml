@@ -1,38 +1,85 @@
-version: '3.8'
+version: '3'
 
-# networks:
-#     shared_network:
-#         external: true
+networks:
+    high_school:
+        external: true
 
 services:
-    postgres_db:
-        container_name: postgresDB
-        image: postgres:latest
-        environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-            - POSTGRES_DB=some-db
-        restart: always
-        ports:
-            - '5436:5432'
-        volumes:
-            # - ./ext.sql:/docker-entrypoint-initdb.d/ext.sql
-            # - ./db.sql:/docker-entrypoint-initdb.d/db.sql
-            # - ./mysql.conf:/etc/mysql/conf.d
-            # - ./dbdata:/var/lib/mysql/:delegated
-            - ./db:/var/lib/postgresql/data
-    pgadmin:
-        image: dpage/pgadmin4
-        container_name: pgadmin4_container
-        restart: always
-        ports:
-          - "5050:80"
-        environment:
-          PGADMIN_DEFAULT_EMAIL: raj@nola.com
-          PGADMIN_DEFAULT_PASSWORD: admin
-        volumes:
-          - ./pgadmin-data:/var/lib/pgadmin
-    volumes:
-        postgres_db:
-            driver: local
+    # postgres_db:
+    #     container_name: postgresDB
+    #     image: postgres:latest
+    #     environment:
+    #         - POSTGRES_USER=postgres
+    #         - POSTGRES_PASSWORD=postgres
+    #         - POSTGRES_DB=some-db
+    #     restart: always
+    #     ports:
+    #         - '5436:5432'
+    #     expose: 
+    #         - 5432
+    #     volumes:
+    #         - ./db:/var/lib/postgresql/data
+    # pgadmin:
+    #     image: dpage/pgadmin4
+    #     container_name: pgadmin4_container
+    #     restart: always
+    #     ports:
+    #       - "5050:80"
+    #     environment:
+    #       PGADMIN_DEFAULT_EMAIL: raj@nola.com
+    #       PGADMIN_DEFAULT_PASSWORD: admin
+    #     volumes:
+    #       - ./pgadmin-data:/var/lib/pgadmin
+
+    backend:
+      container_name: backend
+      build:
+        context: .
+        dockerfile: Dockerfile.BE
+      restart: always
+      networks:
+        - high_school
+      command: yarn start:prod
+      environment:
+        - PORT=6969
+        - JWT_KEY_ACCESS=namnk
+        - JWT_KEY_REFRESH=AKSJHKJSDF
+        - EXPIRESIN=1000days
+      ports:
+        - "6969:6969"
+      # volumes:
+      #   - ./backend:/app
+      #   - /app/node_modules
+        
+    frontend:
+      container_name: frontend
+      build:
+        context: .
+        dockerfile: Dockerfile.FE
+      restart: always
+      networks:
+        - high_school
+      ports:
+        - '3000:3000'
+      # volumes:
+      #   - ./frontend:/app
+      #   - /app/node_modules
+
+    nginx:
+      container_name: nginx
+      build:
+          context: .
+          dockerfile: Dockerfile.nginx
+      restart: always
+      volumes:
+        - ./frontend/build:/resource/public
+        - ./nginx.conf:/etc/nginx/conf.d
+        - ${SSL_PATH}:/resource/ssl
+      networks:
+          - high_school
+      ports:
+          - '80:80'
+          - '443:443'
+      depends_on:
+          - backend
 

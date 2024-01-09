@@ -56,7 +56,7 @@ export class StudentSubject {
   startTimeCalculationScore: number;
 
   @Column({ type: 'float' })
-  endTimeCalculationScore: Double;
+  endTimeCalculationScore: number;
 
   // @ManyToOne(() => Subject, (subject) => subject.studentSubjects)
   // subject: Subject;

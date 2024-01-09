@@ -10,6 +10,8 @@ import Paper from "@mui/material/Paper";
 import { ClassScore } from "../mock/class-score";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { configs } from "../config";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.secondary.light,
@@ -36,7 +38,7 @@ export default function ClassScoresPrimaryTeacher() {
     let _info;
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/teacher",
+      url: `${configs.backendUrl}/api/teacher`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -47,9 +49,7 @@ export default function ClassScoresPrimaryTeacher() {
       )[0];
       axios({
         method: "get",
-        url:
-          "http://144.126.211.6:6969/api/class/classPrimaryOfTeacher/" +
-          _info.id,
+        url: `${configs.backendUrl}/api/class/classPrimaryOfTeacher/` + _info.id,
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -57,7 +57,7 @@ export default function ClassScoresPrimaryTeacher() {
         let _class = response.data.data;
         axios({
           method: "get",
-          url: "http://144.126.211.6:6969/api/student/" + _class.id,
+          url: `${configs.backendUrl}/api/student/` + _class.id,
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -82,7 +82,7 @@ export default function ClassScoresPrimaryTeacher() {
           axios({
             method: "get",
             url:
-              "http://144.126.211.6:6969/api/score/listScoreOfClassOfTeacherPrimary?classId=" +
+              `${configs.backendUrl}/api/score/listScoreOfClassOfTeacherPrimary?classId=` +
               _class.id +
               "&subject=chuNhiem",
             headers: {

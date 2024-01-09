@@ -17,6 +17,8 @@ import DoneIcon from "@mui/icons-material/Done";
 import EditIcon from "@mui/icons-material/Edit";
 import HistoryIcon from "@mui/icons-material/History";
 import axios from "axios";
+import { configs } from "../config";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -70,7 +72,7 @@ export default function SalaryManager() {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/teacher",
+      url: `${configs.backendUrl}/api/teacher`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -87,7 +89,7 @@ export default function SalaryManager() {
           if (row.isEditMode === true) {
             axios({
               method: "patch",
-              url: "http://144.126.211.6:6969/api/teacher/" + row.id,
+              url: `${configs.backendUrl}/api/teacher/` + row.id,
               headers: {
                 Authorization: localStorage.getItem("token"),
               },

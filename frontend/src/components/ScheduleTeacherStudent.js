@@ -10,6 +10,7 @@ import Paper from "@mui/material/Paper";
 import { TimetableCT } from "../mock/timetable";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { configs } from "../config";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -40,7 +41,7 @@ export default function ScheduleTeacherStudent() {
     )
       axios({
         method: "get",
-        url: "http://144.126.211.6:6969/api/student",
+        url: `${configs.backendUrl}/api/student`,
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -51,7 +52,7 @@ export default function ScheduleTeacherStudent() {
         )[0];
         axios({
           method: "get",
-          url: "http://144.126.211.6:6969/api/class/timetable/" + _info.classId,
+          url: `${configs.backendUrl}/api/class/timetable/` + _info.classId,
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -111,7 +112,7 @@ export default function ScheduleTeacherStudent() {
 
       axios({
         method: "get",
-        url: "http://144.126.211.6:6969/api/teacher",
+        url: `${configs.backendUrl}/api/teacher`,
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -124,9 +125,7 @@ export default function ScheduleTeacherStudent() {
 
         axios({
           method: "get",
-          url:
-            "http://144.126.211.6:6969/api/class/listClassOfTeacher/" +
-            _info.id,
+          url: `${configs.backendUrl}/api/class/listClassOfTeacher/` + _info.id,
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -140,7 +139,7 @@ export default function ScheduleTeacherStudent() {
             axios({
               method: "get",
               url:
-                "http://144.126.211.6:6969/api/class/timetable/" +
+                `${configs.backendUrl}/api/class/timetable/` +
                 _listClassOfTeacher[i].id,
               headers: {
                 Authorization: localStorage.getItem("token"),

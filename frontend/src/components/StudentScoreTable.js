@@ -9,6 +9,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { StudentScores } from "../mock/student-score";
 import axios from "axios";
+import { configs } from "../config";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -34,7 +36,7 @@ export default function StudentScoreTable() {
   React.useEffect(() => {
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/student",
+      url: `${configs.backendUrl}/api/student`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -47,7 +49,7 @@ export default function StudentScoreTable() {
       axios({
         method: "get",
         url:
-          "http://144.126.211.6:6969/api/score/listScoreOfStudent/{studentId}?studentId=" +
+          `${configs.backendUrl}/api/score/listScoreOfStudent/{studentId}?studentId=` +
           _info.id,
         headers: {
           Authorization: localStorage.getItem("token"),

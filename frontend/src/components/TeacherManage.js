@@ -9,6 +9,7 @@ import Modal from "@mui/material/Modal";
 import Searchbar from "./Search";
 import { useEffect } from "react";
 import axios from "axios";
+import { configs } from "../config";
 
 const style = {
   position: "absolute",
@@ -59,7 +60,7 @@ export default function TeacherManage() {
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://144.126.211.6:6969/api/teacher",
+      url: `${configs.backendUrl}/api/teacher`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -69,7 +70,7 @@ export default function TeacherManage() {
   const addTeacher = (teacher) => {
     axios({
       method: "post",
-      url: "http://144.126.211.6:6969/api/teacher",
+      url: `${configs.backendUrl}/api/teacher`,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -84,7 +85,7 @@ export default function TeacherManage() {
   const deleteTeacher = (teacher) => {
     axios({
       method: "delete",
-      url: "http://144.126.211.6:6969/api/teacher/" + teacher.id,
+      url: `${configs.backendUrl}/api/teacher/` + teacher.id,
       headers: {
         Authorization: localStorage.getItem("token"),
       },
@@ -97,7 +98,7 @@ export default function TeacherManage() {
   const modifyTeacher = (teacher) => {
     axios({
       method: "patch",
-      url: "http://144.126.211.6:6969/api/teacher/" + teacher.id,
+      url: `${configs.backendUrl}/api/teacher/` + teacher.id,
       headers: {
         Authorization: localStorage.getItem("token"),
       },

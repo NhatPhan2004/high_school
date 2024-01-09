@@ -1,0 +1,17 @@
+FROM node:16
+
+ENV NODE_ENV=backend
+
+WORKDIR /app
+
+COPY ./backend/package*.json ./
+
+RUN yarn install
+
+RUN npm i -g nodemon
+
+COPY ./backend .
+
+EXPOSE 8080
+
+CMD [ "yarn", "start:dev" ]

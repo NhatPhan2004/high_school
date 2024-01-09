@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { UserContext } from "../../context/UserContext";
+import { configs } from "../../config";
 
 function LoginForm(props) {
   const userContext = useContext(UserContext);
@@ -38,6 +39,10 @@ function LoginForm(props) {
       }
     }
   };
+
+  const handleRadioClick = (option) => {
+    setRole(option);
+  };
   const navigate = useNavigate();
   // Connect db
   const headers = {
@@ -52,7 +57,7 @@ function LoginForm(props) {
       password: password,
       role: role,
     };
-    axios.post("http://144.126.211.6:6969/api/auth/login", data).then((res) => {
+    axios.post(`${configs.backendUrl}/api/auth/login`, data).then((res) => {
       localStorage.setItem("token", "Bearer " + res.data.accessToken);
       localStorage.setItem("user", JSON.stringify(data));
       console.log(res.data);
@@ -66,10 +71,82 @@ function LoginForm(props) {
     setUsername("");
     setPassword("");
   };
+  console.log(111, role);
+  const radioBoxStyle = {
+    display: "flex",
+    flexDirection: "column",
+  };
   return (
     <div style={{ width: "500px", margin: "auto", marginTop: "200px" }}>
-      <div style={{ fontSize: "28px" }}>Login</div>
+      <div style={{ fontSize: "28px" }}>ĐĂNG NHẬP</div>
+
+      <div style={{ fontSize: "28px" }}>
+        Vui lòng chọn vai trò để đăng nhập:
+      </div>
+
       <form onSubmit={handeSubmit}>
+        {/* <FormControl sx={{ m: 0, minWidth: 120, minHeight: 30 }} size="small">
+          <InputLabel id="demo-select-small">Role</InputLabel>
+          <Select
+            labelId="demo-select-small"
+            id="demo-select-small"
+            value={role}
+            label="Vai trò"
+            name="role"
+            onChange={(e) => {
+              handleOnChange(e, e.target.name);
+            }}
+          >
+            <MenuItem value={"Admin"}>Admin</MenuItem>
+            <MenuItem value={"Teacher"}>Teacher</MenuItem>
+            <MenuItem value={"Student"}>Student</MenuItem>
+            <MenuItem value={"Parent"}>Parent</MenuItem>
+            <MenuItem value={"Accountant"}>Accountant</MenuItem>
+          </Select>
+        </FormControl> */}
+
+        <div class="box" style={radioBoxStyle}>
+          <label>
+            <input
+              type="radio"
+              value={"Admin"}
+              checked={role === "Admin"}
+              onClick={() => handleRadioClick("Admin")}
+            />
+            Quản lý
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              value={"Teacher"}
+              checked={role === "Teacher"}
+              onClick={() => handleRadioClick("Teacher")}
+            />
+            Giáo viên
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              value={"Student"}
+              checked={role === "Student"}
+              onClick={() => handleRadioClick("Student")}
+            />
+            Học sinh
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              value={"Parent"}
+              checked={role === "Parent"}
+              onClick={() => handleRadioClick("Parent")}
+            />
+            Tôi là phụ huynh
+          </label>
+        </div>
+
         <TextField
           variant="outlined"
           margin="normal"
@@ -99,25 +176,7 @@ function LoginForm(props) {
             handleOnChange(e, e.target.name);
           }}
         />
-        <FormControl sx={{ m: 0, minWidth: 120, minHeight: 30 }} size="small">
-          <InputLabel id="demo-select-small">Role</InputLabel>
-          <Select
-            labelId="demo-select-small"
-            id="demo-select-small"
-            value={role}
-            label="Vai trò"
-            name="role"
-            onChange={(e) => {
-              handleOnChange(e, e.target.name);
-            }}
-          >
-            <MenuItem value={"Admin"}>Admin</MenuItem>
-            <MenuItem value={"Teacher"}>Teacher</MenuItem>
-            <MenuItem value={"Student"}>Student</MenuItem>
-            <MenuItem value={"Parent"}>Parent</MenuItem>
-            <MenuItem value={"Accountant"}>Accountant</MenuItem>
-          </Select>
-        </FormControl>
+
         <Button
           style={{ marginTop: "15px" }}
           className="nice-button"
@@ -127,7 +186,7 @@ function LoginForm(props) {
           color="primary"
           autoComplete="off"
         >
-          Submit
+          Đăng nhập
         </Button>
       </form>
     </div>
