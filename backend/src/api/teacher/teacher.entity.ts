@@ -29,7 +29,7 @@ export class Teacher {
   sex: string;
 
   @Column()
-  phone: number;
+  phone: string;
 
   @Column({ nullable: true })
   salary: number;

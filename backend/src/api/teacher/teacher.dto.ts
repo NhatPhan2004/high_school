@@ -28,8 +28,8 @@ export class TeacherRegisterdto {
   @ApiProperty({ example: '31 ngo Duy Hung, tp Ha Noi' })
   address: string;
 
-  @ApiProperty({ example: 243242473 })
-  phone: number;
+  @ApiProperty({ example: '0243242473' })
+  phone: string;
 
   @ApiProperty({ example: '2021-02-19' })
   startWorking: Date;

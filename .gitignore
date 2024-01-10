@@ -37,3 +37,9 @@ backend/vscode/*
 !backend/vscode/extensions.json
 
 pgadmin-data
+
+frontend/src/config.js
+
+nginx.conf/default.conf
+
+docker-compose.yml

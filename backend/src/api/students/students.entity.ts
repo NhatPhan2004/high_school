@@ -41,7 +41,7 @@ export class Student {
   password: string;
 
   @Column()
-  phone: number;
+  phone: string;
 
   @Column()
   startStudying: Date;
