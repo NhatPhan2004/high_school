@@ -18,7 +18,6 @@ import Button from "@mui/material/Button";
 import InfoIcon from "@mui/icons-material/Info";
 import { padding } from "@mui/system";
 
-
 let info;
 
 export default function ListTable(props) {
@@ -34,7 +33,7 @@ export default function ListTable(props) {
     paddingTop: 4,
     width: props.task === "StudentManage" ? "700px" : "500px",
     maxHeight: "100%",
-    overflow : "scroll",
+    overflow: "scroll",
   };
   const columns = props.columns;
   const rows = props.rows;
@@ -50,11 +49,15 @@ export default function ListTable(props) {
     setPage(0);
   };
   const [openAdd, setOpenAdd] = useState(false);
-  const handleOpenAdd = (inf) => {info = inf; setOpenAdd(true); console.log(info)}
+  const handleOpenAdd = (inf) => {
+    info = inf;
+    setOpenAdd(true);
+    console.log(info);
+  };
   const handleCloseAdd = () => setOpenAdd(false);
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 880 }}>
         <Table stickyHeader aria-label="sticky  table">
           <TableHead>
             <TableRow>
@@ -80,8 +83,14 @@ export default function ListTable(props) {
                       var value;
                       if (column.id === "info")
                         value = (
-                          <Button variant="outlined" size = "small" startIcon={<InfoIcon />} sx = {{height : "40px",width : "120px"}} onClick = {() => handleOpenAdd(row)}>
-                            Xem thông tin
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            startIcon={<InfoIcon />}
+                            sx={{ height: "40px", width: "120px" }}
+                            onClick={() => handleOpenAdd(row)}
+                          >
+                            Xem thông tin và sửa
                           </Button>
                         );
                       else value = row[column.id];
@@ -98,7 +107,6 @@ export default function ListTable(props) {
               })}
           </TableBody>
         </Table>
-
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
@@ -114,12 +122,41 @@ export default function ListTable(props) {
         onClose={handleCloseAdd}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      > 
-        <Box sx={style} >
-          {(props.task === "StudentManage") && <AddStudentForm crudStudent = {props.crudStudent} closeAddStudent = {handleCloseAdd} status = "Info" info = {info} classes = {props.classes}/>}
-          {(props.task === "TeacherManage") && <AddTeacherForm crud = {props.crud} close = {handleCloseAdd} status = "Info" info = {info}/>}
-          {(props.task === "AccountantManage") && <AddAccountantForm crud = {props.crud} close = {handleCloseAdd} status = "Info" info = {info}/>}
-          {(props.task === "FacilityManage") && <AddFacilityForm crud = {props.crud} close = {handleCloseAdd} status = "Info" info = {info}/>}
+      >
+        <Box sx={style}>
+          {props.task === "StudentManage" && (
+            <AddStudentForm
+              crudStudent={props.crudStudent}
+              closeAddStudent={handleCloseAdd}
+              status="Info"
+              info={info}
+              classes={props.classes}
+            />
+          )}
+          {props.task === "TeacherManage" && (
+            <AddTeacherForm
+              crud={props.crud}
+              close={handleCloseAdd}
+              status="Info"
+              info={info}
+            />
+          )}
+          {props.task === "AccountantManage" && (
+            <AddAccountantForm
+              crud={props.crud}
+              close={handleCloseAdd}
+              status="Info"
+              info={info}
+            />
+          )}
+          {props.task === "FacilityManage" && (
+            <AddFacilityForm
+              crud={props.crud}
+              close={handleCloseAdd}
+              status="Info"
+              info={info}
+            />
+          )}
         </Box>
       </Modal>
     </Paper>

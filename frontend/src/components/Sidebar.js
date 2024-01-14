@@ -59,18 +59,18 @@ const adminSidebar = [
     link: <TeacherManage/>,
     icon: SchoolIcon,
   },
-  // {
-  //   id: 3,
-  //   label: "Quản lý cơ sở vật chất",
-  //   link: <FacilityManage/>,
-  //   icon: ChairAltIcon,
-  // },
   {
     id: 2,
     label: "Quản lý lớp học",
     link: <ClassManage/>,
     icon: ClassIcon,
-  }
+  },
+  {
+    id: 3,
+    label: "Quản lý cơ sở vật chất",
+    link: <FacilityManage/>,
+    icon: ChairAltIcon,
+  },
 ];
 const studentSidebar = [
   {
