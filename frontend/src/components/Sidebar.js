@@ -41,12 +41,6 @@ import SalaryManager from "./SalaryManage";
 import ClassScoresPrimaryTeacher from "./ClassScoresPrimaryTeacher";
 const drawerWidth = 240;
 const adminSidebar = [
-  // {
-  //   id: 0,
-  //   label: "Quản lý kế toán",
-  //   link: <AccountantManage/>,
-  //   icon: MenuBookIcon,
-  // },
   {
     id: 0,
     label: "Quản lý học sinh",
