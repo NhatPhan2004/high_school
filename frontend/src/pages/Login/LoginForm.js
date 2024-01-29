@@ -77,15 +77,18 @@ function LoginForm(props) {
     flexDirection: "column",
   };
   return (
-    <div style={{ width: "500px", margin: "auto", marginTop: "200px" }}>
-      <div style={{ fontSize: "28px" }}>ĐĂNG NHẬP</div>
+    <div style={{ display: "flex" }}>
+      <div style={{ width: "500px", margin: "auto", marginTop: "180px" }}>
+        <div style={{ fontSize: "36px", color: "#8c1515", fontWeight: "bold" }}>
+          ĐĂNG NHẬP
+        </div>
 
-      <div style={{ fontSize: "28px" }}>
-        Vui lòng chọn vai trò để đăng nhập:
-      </div>
+        <div style={{ fontSize: "24px" }}>
+          Vui lòng chọn vai trò để đăng nhập:
+        </div>
 
-      <form onSubmit={handeSubmit}>
-        {/* <FormControl sx={{ m: 0, minWidth: 120, minHeight: 30 }} size="small">
+        <form onSubmit={handeSubmit}>
+          {/* <FormControl sx={{ m: 0, minWidth: 120, minHeight: 30 }} size="small">
           <InputLabel id="demo-select-small">Role</InputLabel>
           <Select
             labelId="demo-select-small"
@@ -105,90 +108,111 @@ function LoginForm(props) {
           </Select>
         </FormControl> */}
 
-        <div class="box" style={radioBoxStyle}>
-          <label>
-            <input
-              type="radio"
-              value={"Admin"}
-              checked={role === "Admin"}
-              onClick={() => handleRadioClick("Admin")}
-            />
-            Quản lý
-          </label>
+          <div class="box" style={radioBoxStyle}>
+            <label>
+              <input
+                style={{ marginRight: "8px" }}
+                type="radio"
+                value={"Admin"}
+                checked={role === "Admin"}
+                onClick={() => handleRadioClick("Admin")}
+              />
+              Quản lý
+            </label>
 
-          <label>
-            <input
-              type="radio"
-              value={"Teacher"}
-              checked={role === "Teacher"}
-              onClick={() => handleRadioClick("Teacher")}
-            />
-            Giáo viên
-          </label>
+            <label>
+              <input
+                style={{ marginRight: "8px" }}
+                type="radio"
+                value={"Teacher"}
+                checked={role === "Teacher"}
+                onClick={() => handleRadioClick("Teacher")}
+              />
+              Giáo viên
+            </label>
 
-          <label>
-            <input
+            <label>
+              <input
+                style={{ marginRight: "8px" }}
+                type="radio"
+                value={"Student"}
+                checked={role === "Student"}
+                onClick={() => handleRadioClick("Student")}
+              />
+              Học sinh
+            </label>
+
+            {/* <input
               type="radio"
+              id="Student"
               value={"Student"}
               checked={role === "Student"}
               onClick={() => handleRadioClick("Student")}
             />
-            Học sinh
-          </label>
+            <label for="Student">Học sinh</label> */}
 
-          <label>
-            <input
-              type="radio"
-              value={"Parent"}
-              checked={role === "Parent"}
-              onClick={() => handleRadioClick("Parent")}
-            />
-            Tôi là phụ huynh
-          </label>
-        </div>
+            <label>
+              <input
+                style={{ marginRight: "8px" }}
+                type="radio"
+                value={"Parent"}
+                checked={role === "Parent"}
+                onClick={() => handleRadioClick("Parent")}
+              />
+              Tôi là phụ huynh
+            </label>
+          </div>
 
-        <TextField
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          id="username"
-          value={username}
-          label="Tên tài khoản"
-          name="username"
-          required
-          autoComplete="off"
-          onChange={(e) => {
-            handleOnChange(e, e.target.name);
-          }}
-        />
-        <TextField
-          type="password"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          id="password"
-          value={password}
-          label="Mật khẩu"
-          name="password"
-          autoComplete="off"
-          required
-          onChange={(e) => {
-            handleOnChange(e, e.target.name);
-          }}
-        />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="username"
+            value={username}
+            label="Tên tài khoản"
+            name="username"
+            required
+            autoComplete="off"
+            onChange={(e) => {
+              handleOnChange(e, e.target.name);
+            }}
+          />
+          <TextField
+            type="password"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="password"
+            value={password}
+            label="Mật khẩu"
+            name="password"
+            autoComplete="off"
+            required
+            onChange={(e) => {
+              handleOnChange(e, e.target.name);
+            }}
+          />
 
-        <Button
-          style={{ marginTop: "15px" }}
-          className="nice-button"
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          autoComplete="off"
-        >
-          Đăng nhập
-        </Button>
-      </form>
+          <Button
+            style={{ marginTop: "15px" }}
+            className="nice-button"
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            autoComplete="off"
+          >
+            Đăng nhập
+          </Button>
+        </form>
+      </div>
+
+      <div>
+        <img
+          src="https://hust.media/img/hero-img.png"
+          style={{ width: "800px", margin: "auto", marginTop: "100px" }}
+        ></img>
+      </div>
     </div>
   );
 }

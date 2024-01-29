@@ -51,8 +51,7 @@ export class ScoreService {
       score.studentId = student.id;
       score.student = student;
       score.subject = createScoreDto.subject;
-      const rs = await this.scoreRepository.save(score);
-      return rs;
+      return this.scoreRepository.save(score);
     } catch (error) {
       throw error;
     }

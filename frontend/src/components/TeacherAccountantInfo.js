@@ -57,6 +57,46 @@ export default function TeacherAccountantInfo() {
       noValidate
       autoComplete="off"
     >
+      <h2
+        style={{
+          fontFamily: "Segoe UI",
+          fontSize: "20px",
+          fontWeight: "bold",
+          color: "#8c1515",
+          verticalAlign: "middle",
+          lineHeight: "2em",
+        }}
+      >
+        Thông tin giáo viên
+      </h2>
+
+      <div>
+        <img
+          src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg"
+          alt="Ảnh chân dung"
+          style={{
+            borderRadius: 4,
+            padding: 5,
+            width: 150,
+          }}
+        ></img>
+      </div>
+
+      <h2
+        style={{
+          fontFamily: "Segoe UI",
+          fontSize: "20px",
+          fontWeight: "bold",
+          color: "#8c1515",
+          verticalAlign: "middle",
+          lineHeight: "2em",
+        }}
+      >
+        Thông tin cá nhân
+      </h2>
+
+      <hr style={{ border: "1px solid red" }}></hr>
+
       <div style={{ display: "flex", justifyContent: "flex-start" }}>
         <Typography variant="h5" component="h5" sx={{ width: "200px" }}>
           Họ và tên

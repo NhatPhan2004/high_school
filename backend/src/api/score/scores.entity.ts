@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
   Double,
 } from 'typeorm';
-import { Student } from '../students/students.entity';
+import { Student, Subject } from '../students/students.entity';
 @Entity({ name: 'StudentSubject' })
 export class StudentSubject {
   @PrimaryGeneratedColumn()
@@ -63,4 +63,7 @@ export class StudentSubject {
 
   @ManyToOne(() => Student, (student) => student.studentSubjects)
   student: Student;
+
+  @ManyToOne(() => Subject, (subject) => subject.studentSubjects)
+  subjects: Subject;
 }

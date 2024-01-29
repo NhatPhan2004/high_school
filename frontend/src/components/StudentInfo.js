@@ -64,10 +64,50 @@ export default function StudentInfo() {
       noValidate
       autoComplete="off"
     >
-      <img
+      {/* <img
         src={info.avatar}
         style={{ width: "200px", height: "200px", marginLeft: "50px" }}
-      ></img>
+      ></img> */}
+      <h2
+        style={{
+          fontFamily: "Segoe UI",
+          fontSize: "20px",
+          fontWeight: "bold",
+          color: "#8c1515",
+          verticalAlign: "middle",
+          lineHeight: "2em",
+        }}
+      >
+        Thông tin học sinh
+      </h2>
+
+      <div>
+        <img
+          src="https://cdn.sforum.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg"
+          alt="Ảnh chân dung"
+          style={{
+            borderRadius: 4,
+            padding: 5,
+            width: 150,
+          }}
+        ></img>
+      </div>
+
+      <h2
+        style={{
+          fontFamily: "Segoe UI",
+          fontSize: "20px",
+          fontWeight: "bold",
+          color: "#8c1515",
+          verticalAlign: "middle",
+          lineHeight: "2em",
+        }}
+      >
+        Thông tin cá nhân
+      </h2>
+
+      <hr style={{ border: "2px solid red" }}></hr>
+
       <div style={{ display: "flex", justifyContent: "flex-start" }}>
         <Typography variant="h5" component="h5" sx={{ width: "200px" }}>
           Họ và tên
@@ -142,13 +182,20 @@ export default function StudentInfo() {
 
       <br></br>
       <Typography
-        variant="h3"
-        component="h3"
-        sx={{ width: "500px", color: "green" }}
+        style={{
+          fontFamily: "Segoe UI",
+          fontSize: "20px",
+          fontWeight: "bold",
+          color: "#8c1515",
+          verticalAlign: "middle",
+          lineHeight: "2em",
+        }}
       >
         Thông tin phụ huynh:
       </Typography>
-      <Divider />
+      {/* <Divider /> */}
+      <hr style={{ border: "2px solid red" }}></hr>
+
       <br></br>
       <div style={{ display: "flex", justifyContent: "flex-start" }}>
         <Typography variant="h5" component="h5" sx={{ width: "200px" }}>
@@ -195,8 +242,10 @@ export default function StudentInfo() {
         </Typography>
       </div>
 
-      <Divider />
+      {/* <Divider /> */}
+
       <br></br>
+      <hr style={{ border: "2x solid red" }}></hr>
 
       <div style={{ display: "flex", justifyContent: "flex-start" }}>
         <Typography variant="h5" component="h5" sx={{ width: "200px" }}>

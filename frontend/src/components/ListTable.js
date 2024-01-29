@@ -12,11 +12,9 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import AddStudentForm from "./AddStudentForm";
 import AddTeacherForm from "./AddTeacherForm";
-import AddAccountantForm from "./AddAccountantForm";
 import AddFacilityForm from "./AddFacilityForm";
 import Button from "@mui/material/Button";
 import InfoIcon from "@mui/icons-material/Info";
-import { padding } from "@mui/system";
 
 let info;
 
@@ -141,14 +139,14 @@ export default function ListTable(props) {
               info={info}
             />
           )}
-          {props.task === "AccountantManage" && (
+          {/* {props.task === "AccountantManage" && (
             <AddAccountantForm
               crud={props.crud}
               close={handleCloseAdd}
               status="Info"
               info={info}
             />
-          )}
+          )} */}
           {props.task === "FacilityManage" && (
             <AddFacilityForm
               crud={props.crud}

@@ -76,15 +76,15 @@ let _infoTeacher;
 export default function ScoreInputTable() {
   const [rows, setRows] = React.useState([
     createData({
-      id: 1,
-      name: "Vũ Hoàng Phúc",
-      dateOfBirth: "15-10-2000",
-      score15m1: 9.5,
-      score15m2: 6.0,
-      score15m3: 9.0,
-      score45m1: 10.0,
-      score45m2: 10.0,
-      score90m: 8.5,
+      id: "",
+      name: "",
+      dateOfBirth: "",
+      score15m1: "",
+      score15m2: "",
+      score15m3: "",
+      score45m1: "",
+      score45m2: "",
+      score90m: "",
     }),
   ]);
   const classes = useStyles();
@@ -249,7 +249,8 @@ export default function ScoreInputTable() {
       axios({
         method: "get",
         url:
-          `${configs.backendUrl}/api/class/listClassOfTeacher/` + _infoTeacher.id,
+          `${configs.backendUrl}/api/class/listClassOfTeacher/` +
+          _infoTeacher.id,
         headers: {
           Authorization: localStorage.getItem("token"),
         },

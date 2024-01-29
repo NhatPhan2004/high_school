@@ -34,6 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ScheduleTeacherStudent() {
   const [rows, setRows] = useState(TimetableCT[0].schedule);
+
   useEffect(() => {
     if (
       JSON.parse(localStorage.getItem("user")).role === "Student" ||
@@ -185,19 +186,21 @@ export default function ScheduleTeacherStudent() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.lesson}>
-              <StyledTableCell component="th" scope="row">
-                {row.lesson}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.monday}</StyledTableCell>
-              <StyledTableCell align="right">{row.tuesday}</StyledTableCell>
-              <StyledTableCell align="right">{row.wednesday}</StyledTableCell>
-              <StyledTableCell align="right">{row.thursday}</StyledTableCell>
-              <StyledTableCell align="right">{row.friday}</StyledTableCell>
-              <StyledTableCell align="right">{row.saturday}</StyledTableCell>
-            </StyledTableRow>
-          ))}
+          {rows
+            .sort((a, b) => a.lesson - b.lesson)
+            .map((row) => (
+              <StyledTableRow key={row.lesson}>
+                <StyledTableCell component="th" scope="row">
+                  {row.lesson}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.monday}</StyledTableCell>
+                <StyledTableCell align="right">{row.tuesday}</StyledTableCell>
+                <StyledTableCell align="right">{row.wednesday}</StyledTableCell>
+                <StyledTableCell align="right">{row.thursday}</StyledTableCell>
+                <StyledTableCell align="right">{row.friday}</StyledTableCell>
+                <StyledTableCell align="right">{row.saturday}</StyledTableCell>
+              </StyledTableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

@@ -26,9 +26,8 @@ import InboxIcon from "@mui/icons-material/Inbox";
 import ChairAltIcon from "@mui/icons-material/ChairAlt";
 import { Link, withRouter } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
-import StudentManage from "./StudentManage"
+import StudentManage from "./StudentManage";
 import TeacherManage from "./TeacherManage";
-import AccountantManage from "./AccountantManage";
 import FacilityManage from "./FacilityManage";
 import ScoreInputTable from "./ScoreInputTable";
 import ClassManage from "./ClassManage";
@@ -37,32 +36,32 @@ import StudentInfo from "./StudentInfo";
 import ChangePassword from "./ChangePassword";
 import ScheduleTeacherStudent from "./ScheduleTeacherStudent";
 import StudentScoreTable from "./StudentScoreTable";
-import SalaryManager from "./SalaryManage";
 import ClassScoresPrimaryTeacher from "./ClassScoresPrimaryTeacher";
 const drawerWidth = 240;
+
 const adminSidebar = [
   {
     id: 0,
     label: "Quản lý học sinh",
-    link: <StudentManage/>,
+    link: <StudentManage />,
     icon: HikingIcon,
   },
   {
     id: 1,
     label: "Quản lý giáo viên",
-    link: <TeacherManage/>,
+    link: <TeacherManage />,
     icon: SchoolIcon,
   },
   {
     id: 2,
     label: "Quản lý lớp học",
-    link: <ClassManage/>,
+    link: <ClassManage />,
     icon: ClassIcon,
   },
   {
     id: 3,
     label: "Quản lý cơ sở vật chất",
-    link: <FacilityManage/>,
+    link: <FacilityManage />,
     icon: ChairAltIcon,
   },
 ];
@@ -70,25 +69,25 @@ const studentSidebar = [
   {
     id: 0,
     label: "Thông tin cá nhân",
-    link: <StudentInfo/>,
+    link: <StudentInfo />,
     icon: InfoIcon,
   },
   {
     id: 1,
     label: "Thời khóa biểu",
-    link: <ScheduleTeacherStudent/>,
+    link: <ScheduleTeacherStudent />,
     icon: TableViewIcon,
   },
   {
     id: 2,
     label: "Kết quả học tập",
-    link: <StudentScoreTable/>,
+    link: <StudentScoreTable />,
     icon: ScoreIcon,
   },
   {
     id: 3,
     label: "Đổi mật khẩu",
-    link: <ChangePassword/>,
+    link: <ChangePassword />,
     icon: PasswordIcon,
   },
 ];
@@ -96,31 +95,31 @@ const teacherSidebar = [
   {
     id: 0,
     label: "Thông tin cá nhân",
-    link: <TeacherAccountantInfo/>,
+    link: <TeacherAccountantInfo />,
     icon: InfoIcon,
   },
   {
     id: 1,
     label: "Thời khóa biểu",
-    link: <ScheduleTeacherStudent/>,
+    link: <ScheduleTeacherStudent />,
     icon: TableViewIcon,
   },
   {
     id: 2,
     label: "Nhập điểm môn học",
-    link: <ScoreInputTable/>,
+    link: <ScoreInputTable />,
     icon: ScoreIcon,
   },
   {
     id: 3,
     label: "Xem điểm lớp chủ nhiệm",
-    link: <ClassScoresPrimaryTeacher/>,
+    link: <ClassScoresPrimaryTeacher />,
     icon: ScoreIcon,
   },
   {
     id: 4,
     label: "Đổi mật khẩu",
-    link: <ChangePassword/>,
+    link: <ChangePassword />,
     icon: PasswordIcon,
   },
 ];
@@ -128,24 +127,25 @@ const accountantSidebar = [
   {
     id: 0,
     label: "Thông tin cá nhân",
-    link: <TeacherAccountantInfo/>,
+    link: <TeacherAccountantInfo />,
     icon: InfoIcon,
   },
-  {
-    id: 1,
-    label: "Quản lý lương",
-    link: <SalaryManager/>,
-    icon: LocalAtmIcon,
-  },
+  // {
+  //   id: 1,
+  //   label: "Quản lý lương",
+  //   link: <SalaryManager />,
+  //   icon: LocalAtmIcon,
+  // },
   {
     id: 3,
     label: "Đổi mật khẩu",
-    link: <ChangePassword/>,
+    link: <ChangePassword />,
     icon: PasswordIcon,
   },
 ];
-export default function Sidebar({setContent}) {
+export default function Sidebar({ setContent }) {
   const { user, setUser } = React.useContext(UserContext);
+
   var sideBarContent;
   if (user) {
     switch (user.role) {
@@ -163,10 +163,6 @@ export default function Sidebar({setContent}) {
       }
       case "Parent": {
         sideBarContent = studentSidebar.slice(0, studentSidebar.length - 1);
-        break;
-      }
-      case "Accountant": {
-        sideBarContent = accountantSidebar;
         break;
       }
       default:
@@ -189,12 +185,21 @@ export default function Sidebar({setContent}) {
       >
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
-          <List>
+          <List className="">
             {sideBarContent.map((text, index) => (
               <React.Fragment key={index}>
                 <ListItem key={index} disablePadding>
-                  <ListItemButton onClick={()=>{setContent(text.link)}}>
-                    <ListItemIcon>{<text.icon/>}</ListItemIcon>
+                  <ListItemButton
+                    sx={{
+                      backgroundColor: text.isActive ? "#e0e0e0" : "#ffffff",
+                    }}
+                    onClick={() => {
+                      sideBarContent.map((item) => (item.isActive = false));
+                      text.isActive = true;
+                      setContent(text.link);
+                    }}
+                  >
+                    <ListItemIcon>{<text.icon />}</ListItemIcon>
                     <ListItemText primary={text.label} />
                   </ListItemButton>
                 </ListItem>

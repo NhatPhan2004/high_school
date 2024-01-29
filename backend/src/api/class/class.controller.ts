@@ -106,6 +106,20 @@ export class ClassController {
     }
   }
 
+  // @ApiBearerAuth()
+  // @UseGuards(AuthGuard('jwt'))
+  @Get('subjects')
+  @ApiResponse({ status: 200, description: 'Ok' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  public async getSubjects(@Res() res) {
+    try {
+      const data = await this.classService.getSubjects();
+      res.json({ data });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Get('timetableOfTeacher')

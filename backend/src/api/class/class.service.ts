@@ -100,6 +100,10 @@ export class ClassService {
     return classTeacher;
   }
 
+  public async getSubjects() {
+    return await this.SubjectRepository.find();
+  }
+
   public async assignClassTeacher(
     assignClassTeacherDto: AssignClassTeacherDto,
   ) {
