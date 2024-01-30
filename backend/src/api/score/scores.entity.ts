@@ -10,7 +10,7 @@ import {
 import { Student, Subject } from '../students/students.entity';
 @Entity({ name: 'StudentSubject' })
 export class StudentSubject {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()

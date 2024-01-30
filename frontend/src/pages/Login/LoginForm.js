@@ -153,6 +153,8 @@ function LoginForm(props) {
             {...register("username", {
               required: "Vui lòng điền tên đăng nhập",
             })}
+            FormHelperTextProps={{ sx: { color: "red" } }}
+            helperText={errors?.username && errors.username.message}
             onChange={(e) => {
               handleOnChange(e, e.target.name);
             }}
@@ -171,14 +173,12 @@ function LoginForm(props) {
             {...register("password", {
               required: "Vui lòng điền mật khẩu",
             })}
+            FormHelperTextProps={{ sx: { color: "red" } }}
+            helperText={errors?.password && errors.password.message}
             onChange={(e) => {
               handleOnChange(e, e.target.name);
             }}
           />
-          <small>
-            {errors?.username && errors.username.message}
-            {errors?.password && errors.password.message}
-          </small>
 
           <Button
             style={{ marginTop: "15px" }}

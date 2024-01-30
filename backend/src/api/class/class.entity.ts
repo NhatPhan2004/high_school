@@ -14,7 +14,7 @@ import { Teacher } from '../teacher/teacher.entity';
 
 @Entity({ name: 'Classroom' })
 export class Classroom {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()
@@ -50,7 +50,7 @@ export class Classroom {
 
 @Entity({ name: 'ClassSubject' })
 export class ClassSubject {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column({ nullable: true })
@@ -95,7 +95,7 @@ export class ClassSubject {
 
 @Entity({ name: 'ClassTeacher' })
 export class ClassTeacher {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()

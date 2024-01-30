@@ -148,6 +148,7 @@ export default function ScheduleTeacherStudent() {
             }).then((classTable) => {
               console.log("Class Table: ", classTable.data.data);
               var _classTable = classTable.data.data;
+              _classTable = _classTable.sort((a, b) => a.lesson - b.lesson);
               for (var j = 0; j < _classTable.length; j++) {
                 console.log(_classTable[j]);
                 if (_classTable[j].monday == _info.subject)
@@ -163,6 +164,7 @@ export default function ScheduleTeacherStudent() {
                 if (_classTable[j].saturday == _info.subject)
                   _rows[j].saturday = _listClassOfTeacher[i].name;
               }
+              // _rows.sort((a, b) => a.lesson - b.lesson);
               console.log("Teacher time table: ", _rows);
               setRows(_rows);
             });

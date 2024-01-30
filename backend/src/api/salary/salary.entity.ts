@@ -13,7 +13,7 @@ import { Accountant } from '../accountant/accountant.entity';
 
 @Entity({ name: 'Salary' })
 export class Salary {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()

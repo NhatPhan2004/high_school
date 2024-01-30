@@ -354,6 +354,7 @@ function AddStudentForm({
           FormHelperTextProps={{ sx: { color: "red" } }}
           helperText={errors?.email && errors.email.message}
           onChange={(e) => {
+            errors.email = null;
             handleOnChange(e, e.target.name);
           }}
         />

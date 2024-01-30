@@ -13,7 +13,7 @@ import { ClassTeacher } from '../class/class.entity';
 
 @Entity({ name: 'Teacher' })
 export class Teacher {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()

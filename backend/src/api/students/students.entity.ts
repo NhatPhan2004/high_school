@@ -13,7 +13,7 @@ import { StudentSubject } from '../score/scores.entity';
 
 @Entity({ name: 'Student' })
 export class Student {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()
@@ -94,7 +94,7 @@ export class Student {
 
 @Entity({ name: 'Subject' })
 export class Subject {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()
