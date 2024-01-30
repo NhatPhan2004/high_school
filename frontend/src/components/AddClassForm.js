@@ -11,10 +11,10 @@ export default function AddClassForm({ close, crud, status, info }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const o = {
-      name : name.toString(),
-      location : location.toString(),
-      startYear : parseInt(startYear),
-      endYear : parseInt(endYear)
+      name: name.toString(),
+      location: location.toString(),
+      startYear: parseInt(startYear),
+      endYear: parseInt(endYear),
     };
     crud("Add", o);
     close();
@@ -22,10 +22,10 @@ export default function AddClassForm({ close, crud, status, info }) {
   const handleInfo = (status) => {
     const o = {
       id: parseInt(info.id),
-      name : name.toString(),
-      location : location.toString(),
-      startYear : parseInt(startYear),
-      endYear : parseInt(endYear)
+      name: name.toString(),
+      location: location.toString(),
+      startYear: parseInt(startYear),
+      endYear: parseInt(endYear),
     };
     crud(status, o);
     close();
@@ -54,7 +54,7 @@ export default function AddClassForm({ close, crud, status, info }) {
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" }
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
       }}
       noValidate
       autoComplete="off"
@@ -71,7 +71,7 @@ export default function AddClassForm({ close, crud, status, info }) {
           name="name"
           required
           autoComplete="off"
-          color = "success"
+          color="success"
           disabled={!(statusCurrent !== "Info")}
           onChange={(e) => {
             handleOnChange(e, e.target.name);
@@ -86,7 +86,7 @@ export default function AddClassForm({ close, crud, status, info }) {
           label="Vị trí"
           name="location"
           autoComplete="off"
-          color = "success"
+          color="success"
           disabled={!(statusCurrent !== "Info")}
           required
           onChange={(e) => {
@@ -105,7 +105,7 @@ export default function AddClassForm({ close, crud, status, info }) {
           label="Năm bắt đầu"
           name="startYear"
           autoComplete="off"
-          color = "success"
+          color="success"
           disabled={!(statusCurrent !== "Info")}
           required
           onChange={(e) => {
@@ -121,7 +121,7 @@ export default function AddClassForm({ close, crud, status, info }) {
           label="Năm kết thúc"
           name="endYear"
           autoComplete="off"
-          color = "success"
+          color="success"
           disabled={!(statusCurrent !== "Info")}
           required
           onChange={(e) => {

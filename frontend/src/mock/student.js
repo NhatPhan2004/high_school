@@ -1,11 +1,11 @@
 export const studentList = [
   {
     id: 1,
-    name: "Nguyễn Văn Nam",
+    name: "Nguyễn Văn Phúc",
     birthday: "15/10/2000",
     sex: "Nam",
     class: "10A1",
-    email: "vuhoangphuc2000@gmail.com",
+    email: "nguyennam@gmail.com",
     phone: "0382431592",
     address: "Trang Liệt, Trang Hạ, Từ Sơn, Bắc Ninh",
     fatherName: "Vũ Kim Thường",

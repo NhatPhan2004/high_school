@@ -66,11 +66,11 @@ function AddStudentForm({
       sex,
       classId: classname,
       email,
-      phone: parseInt(phone),
+      phone: phone,
       address,
       fatherName,
       fatherJob,
-      fatherPhone: parseInt(fatherPhoneNumber),
+      fatherPhone: fatherPhoneNumber,
       fatherDateOfBirth,
       fatherJobAddress,
       motherName,
@@ -94,11 +94,11 @@ function AddStudentForm({
       sex,
       classId: classname,
       email,
-      phone: parseInt(phone),
+      phone: phone,
       address,
       fatherName,
       fatherJob,
-      fatherPhone: parseInt(fatherPhoneNumber),
+      fatherPhone: fatherPhoneNumber,
       fatherDateOfBirth,
       fatherJobAddress,
       motherName,
@@ -274,7 +274,7 @@ function AddStudentForm({
             minHeight: 30,
           }}
           size="medium"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
         >
           <InputLabel id="demo-select-small">Lớp</InputLabel>
           <Select

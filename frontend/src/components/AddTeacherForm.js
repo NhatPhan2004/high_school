@@ -1,60 +1,64 @@
 import React, { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 
-export default function AddTeacherForm({close, crud, status, info}) {
+export default function AddTeacherForm({ close, crud, status, info }) {
   console.log(info);
   console.log("Status:" + status);
 
-  const [name, setName] = useState(info === ""? "" : info.name);
-  const [birthday, setBirthDay] = useState(info === ""? "" : info.dateOfBirth);
-  const [sex, setSex] = useState(info === ""? "" : info.sex);
-  const [subject, setSubject] = useState(info === ""? "" : info.subject);
-  const [email, setEmail] = useState(info === ""? "" : info.email);
-  const [phone, setPhone] = useState(info === ""? "" : info.phone);
-  const [address, setAddress] = useState(info === ""? "" : info.address);
-  const [startWorking, setStartWorking] = useState(info === ""? "" : info.startWorking);
-  const [endWorking, setEndWorking] = useState(info === ""? "" : info.endWorking);
-  const [username, setUsername] = useState(info === ""? "" : info.username);
-  const [password, setPassword] = useState(info === ""? "" : info.password);
+  const [name, setName] = useState(info === "" ? "" : info.name);
+  const [birthday, setBirthDay] = useState(info === "" ? "" : info.dateOfBirth);
+  const [sex, setSex] = useState(info === "" ? "" : info.sex);
+  const [subject, setSubject] = useState(info === "" ? "" : info.subject);
+  const [email, setEmail] = useState(info === "" ? "" : info.email);
+  const [phone, setPhone] = useState(info === "" ? "" : info.phone);
+  const [address, setAddress] = useState(info === "" ? "" : info.address);
+  const [startWorking, setStartWorking] = useState(
+    info === "" ? "" : info.startWorking
+  );
+  const [endWorking, setEndWorking] = useState(
+    info === "" ? "" : info.endWorking
+  );
+  const [username, setUsername] = useState(info === "" ? "" : info.username);
+  const [password, setPassword] = useState(info === "" ? "" : info.password);
 
   const [statusCurrent, SetStatusCurrent] = useState(status);
   const handleSubmit = (e) => {
     e.preventDefault();
     let o = {
       name,
-      dateOfBirth : birthday,
+      dateOfBirth: birthday,
       sex,
       subject,
       email,
-      phone : parseInt(phone),
+      phone: phone,
       address,
       startWorking,
       username,
-      password
+      password,
     };
-    if(endWorking !== "") o = {...o, endWorking};
-    crud("Add",o);
+    if (endWorking !== "") o = { ...o, endWorking };
+    crud("Add", o);
     close();
   };
-  const handleInfo = (status) =>{
+  const handleInfo = (status) => {
     let o = {
-      id : info.id,
+      id: info.id,
       name,
-      dateOfBirth : birthday,
+      dateOfBirth: birthday,
       sex,
       subject,
       email,
-      phone : parseInt(phone),
+      phone: phone,
       address,
       startWorking,
       username,
-      password
+      password,
     };
-    if(endWorking !== "") o = {...o, endWorking};
-    crud(status,o);
+    if (endWorking !== "") o = { ...o, endWorking };
+    crud(status, o);
     close();
-  }
+  };
   const handleOnChange = (e, type) => {
     switch (type) {
       case "name": {
@@ -100,7 +104,7 @@ export default function AddTeacherForm({close, crud, status, info}) {
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" }
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
       }}
       noValidate
       autoComplete="off"
@@ -117,7 +121,7 @@ export default function AddTeacherForm({close, crud, status, info}) {
           name="name"
           required
           autoComplete="off"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
           onChange={(e) => {
             handleOnChange(e, e.target.name);
           }}
@@ -131,15 +135,15 @@ export default function AddTeacherForm({close, crud, status, info}) {
           label="Ngày sinh MM-DD-YYYY"
           name="birthday"
           autoComplete="off"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
           required
           onChange={(e) => {
             handleOnChange(e, e.target.name);
           }}
         />
-        </div>
+      </div>
 
-        <div>
+      <div>
         <TextField
           variant="outlined"
           margin="normal"
@@ -149,7 +153,7 @@ export default function AddTeacherForm({close, crud, status, info}) {
           label="Giới tính"
           name="sex"
           autoComplete="off"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
           required
           onChange={(e) => {
             handleOnChange(e, e.target.name);
@@ -165,14 +169,14 @@ export default function AddTeacherForm({close, crud, status, info}) {
           required
           name="subject"
           autoComplete="off"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
           onChange={(e) => {
             handleOnChange(e, e.target.name);
           }}
         />
-        </div>
-        <div>
-         <TextField
+      </div>
+      <div>
+        <TextField
           variant="outlined"
           margin="normal"
           fullWidth
@@ -182,7 +186,7 @@ export default function AddTeacherForm({close, crud, status, info}) {
           name="email"
           required
           autoComplete="off"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
           onChange={(e) => {
             handleOnChange(e, e.target.name);
           }}
@@ -197,7 +201,7 @@ export default function AddTeacherForm({close, crud, status, info}) {
           label="Số điện thoại"
           name="phone"
           autoComplete="off"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
           required
           onChange={(e) => {
             handleOnChange(e, e.target.name);
@@ -205,7 +209,7 @@ export default function AddTeacherForm({close, crud, status, info}) {
         />
       </div>
       <div>
-      <TextField
+        <TextField
           variant="outlined"
           margin="normal"
           fullWidth
@@ -214,14 +218,14 @@ export default function AddTeacherForm({close, crud, status, info}) {
           label="Địa chỉ"
           name="address"
           autoComplete="off"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
           required
           onChange={(e) => {
             handleOnChange(e, e.target.name);
           }}
         />
-        </div>
-        <div>
+      </div>
+      <div>
         <TextField
           variant="outlined"
           margin="normal"
@@ -231,7 +235,7 @@ export default function AddTeacherForm({close, crud, status, info}) {
           label="Ngày bắt đầu làm việc"
           name="startWorking"
           autoComplete="off"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
           required
           onChange={(e) => {
             handleOnChange(e, e.target.name);
@@ -247,13 +251,13 @@ export default function AddTeacherForm({close, crud, status, info}) {
           required
           name="endWorking"
           autoComplete="off"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
           onChange={(e) => {
             handleOnChange(e, e.target.name);
           }}
         />
-        </div>
-        <div>
+      </div>
+      <div>
         <TextField
           variant="outlined"
           margin="normal"
@@ -263,7 +267,7 @@ export default function AddTeacherForm({close, crud, status, info}) {
           label="Username"
           name="username"
           autoComplete="off"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
           required
           onChange={(e) => {
             handleOnChange(e, e.target.name);
@@ -280,76 +284,86 @@ export default function AddTeacherForm({close, crud, status, info}) {
           required
           name="password"
           autoComplete="off"
-          disabled = {!(statusCurrent !== "Info")}
+          disabled={!(statusCurrent !== "Info")}
           onChange={(e) => {
             handleOnChange(e, e.target.name);
           }}
         />
       </div>
       <div>
-        { (statusCurrent !== "Info" && statusCurrent !== "Modify") && <Button
-          className="nice-button"
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          autoComplete="off"
-          sx={{ marginLeft: "10px", width: "25ch", marginBottom: "20px" }}
-        >
-          Thêm
-        </Button>}
-        
-        {statusCurrent === "Info" && <Button
-          className="nice-button"
-          type="rectify"
-          fullWidth
-          variant="contained"
-          color="primary"
-          autoComplete="off"
-          sx={{ marginLeft: "10px", width: "25ch", marginBottom: "20px" }}
-          onClick = {() => SetStatusCurrent("Modify")}
-        >
-          Sửa
-        </Button>}
+        {statusCurrent !== "Info" && statusCurrent !== "Modify" && (
+          <Button
+            className="nice-button"
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            autoComplete="off"
+            sx={{ marginLeft: "10px", width: "25ch", marginBottom: "20px" }}
+          >
+            Thêm
+          </Button>
+        )}
 
-        {statusCurrent === "Info" && <Button
-          className="nice-button"
-          type="delete"
-          fullWidth
-          variant="contained"
-          color="primary"
-          autoComplete="off"
-          sx={{ marginLeft: "10px", width: "25ch", marginBottom: "20px" }}
-          onClick = {()=> handleInfo("Delete")}
-        >
-          Xóa
-        </Button>}
+        {statusCurrent === "Info" && (
+          <Button
+            className="nice-button"
+            type="rectify"
+            fullWidth
+            variant="contained"
+            color="primary"
+            autoComplete="off"
+            sx={{ marginLeft: "10px", width: "25ch", marginBottom: "20px" }}
+            onClick={() => SetStatusCurrent("Modify")}
+          >
+            Sửa
+          </Button>
+        )}
 
-        { (statusCurrent === "Modify") && <Button
-          className="nice-button"
-          type="save"
-          fullWidth
-          variant="contained"
-          color="primary"
-          autoComplete="off"
-          sx={{ marginLeft: "10px", width: "25ch", marginBottom: "20px" }}
-          onClick = {()=> handleInfo("Saved")}
-        >
-          Lưu
-        </Button>}
+        {statusCurrent === "Info" && (
+          <Button
+            className="nice-button"
+            type="delete"
+            fullWidth
+            variant="contained"
+            color="primary"
+            autoComplete="off"
+            sx={{ marginLeft: "10px", width: "25ch", marginBottom: "20px" }}
+            onClick={() => handleInfo("Delete")}
+          >
+            Xóa
+          </Button>
+        )}
 
-        {statusCurrent === "Modify" && <Button
-          className="nice-button"
-          type="Break"
-          fullWidth
-          variant="contained"
-          color="primary"
-          autoComplete="off"
-          sx={{ marginLeft: "10px", width: "25ch", marginBottom: "20px" }}
-          onClick = {() => close()}
-        >
-          Thoát
-        </Button>}
+        {statusCurrent === "Modify" && (
+          <Button
+            className="nice-button"
+            type="save"
+            fullWidth
+            variant="contained"
+            color="primary"
+            autoComplete="off"
+            sx={{ marginLeft: "10px", width: "25ch", marginBottom: "20px" }}
+            onClick={() => handleInfo("Saved")}
+          >
+            Lưu
+          </Button>
+        )}
+
+        {statusCurrent === "Modify" && (
+          <Button
+            className="nice-button"
+            type="Break"
+            fullWidth
+            variant="contained"
+            color="primary"
+            autoComplete="off"
+            sx={{ marginLeft: "10px", width: "25ch", marginBottom: "20px" }}
+            onClick={() => close()}
+          >
+            Thoát
+          </Button>
+        )}
       </div>
     </Box>
   );

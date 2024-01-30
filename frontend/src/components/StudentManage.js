@@ -88,6 +88,7 @@ export default function StudentManage() {
             (cl) => cl.id === _rows[i].classId
           )[0].name;
         }
+        _rows = _rows.sort((a, b) => b.id - a.id);
         setRows(_rows);
       });
     });
@@ -102,9 +103,34 @@ export default function StudentManage() {
       },
       data: student,
     }).then(() => {
-      console.log("1");
-      student.class = classes.filter((cl) => cl.id === student.classId)[0].name;
-      setRows([...rows, student]);
+      // console.log("1");
+      // student.class = classes.filter((cl) => cl.id === student.classId)[0].name;
+      // setRows([...rows, student]);
+      axios({
+        method: "get",
+        url: `${configs.backendUrl}/api/class`,
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((resClasses) => {
+        classes = resClasses.data.data.data;
+        axios({
+          method: "get",
+          url: `${configs.backendUrl}/api/student`,
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }).then((res) => {
+          var _rows = res.data.data.data;
+          for (var i = 0; i < _rows.length; i++) {
+            _rows[i].class = classes.filter(
+              (cl) => cl.id === _rows[i].classId
+            )[0].name;
+          }
+          _rows.sort((a, b) => b.id - a.id);
+          setRows(_rows);
+        });
+      });
     });
   };
   const deleteStudent = (student) => {
@@ -129,11 +155,42 @@ export default function StudentManage() {
         Authorization: localStorage.getItem("token"),
       },
       data: student,
-    }).then(() => {
-      const _new_rows = rows.filter((item) => item.id !== student.id);
-      student.class = classes.filter((cl) => cl.id === student.classId)[0].name;
-      setRows([..._new_rows, student]);
-    });
+    })
+      // .then(() => {
+      //   const _new_rows = rows.filter((item) => item.id !== student.id);
+      //   student.class = classes.filter((cl) => cl.id === student.classId)[0].name;
+      //   setRows([..._new_rows, student]);
+      // });
+      .then(() => {
+        // console.log("1");
+        // student.class = classes.filter((cl) => cl.id === student.classId)[0].name;
+        // setRows([...rows, student]);
+        axios({
+          method: "get",
+          url: `${configs.backendUrl}/api/class`,
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }).then((resClasses) => {
+          classes = resClasses.data.data.data;
+          axios({
+            method: "get",
+            url: `${configs.backendUrl}/api/student`,
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }).then((res) => {
+            var _rows = res.data.data.data;
+            for (var i = 0; i < _rows.length; i++) {
+              _rows[i].class = classes.filter(
+                (cl) => cl.id === _rows[i].classId
+              )[0].name;
+            }
+            _rows.sort((a, b) => b.id - a.id);
+            setRows(_rows);
+          });
+        });
+      });
   };
 
   const CrudStudent = (status, student) => {

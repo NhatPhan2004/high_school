@@ -64,11 +64,11 @@ export class ScoreService {
         where: { id: updateScoreDto.id },
       });
       console.log('score1', score);
-      if (
-        Number(score.endTimeCalculationScore) < Math.floor(new Date().getTime())
-      ) {
-        throw new BadRequestException('Time over to enter score');
-      }
+      // if (
+      //   Number(score.endTimeCalculationScore) < Math.floor(new Date().getTime())
+      // ) {
+      //   throw new BadRequestException('Time over to enter score');
+      // }
       if (updateScoreDto.score15m1 > 10 || updateScoreDto.score15m1 < 0) {
         throw new BadRequestException(
           'Điểm số cần phải lớn hơn 0 và nhỏ hơn 10',

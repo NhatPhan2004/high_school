@@ -12,6 +12,7 @@ import {
   GetClassTeacherDto,
   ListClassOfTeacherDto,
   classPrimaryOfTeacher,
+  UpdateClassdto,
   // UpdateTimetableParam,
 } from './class.dto';
 import { Subject } from '../students/students.entity';
@@ -238,14 +239,16 @@ export class ClassService {
     }
   }
 
-  public async updateClass(updateClassdto: any) {
-    const { id, name, location } = updateClassdto;
+  public async updateClass(id: number, updateClassdto: UpdateClassdto) {
+    const { name, location, startYear, endYear } = updateClassdto;
     try {
       const classrom = await this.classroomRepository.findOne({
         where: { id },
       });
       classrom.name = name;
       classrom.location = location;
+      classrom.startYear = startYear;
+      classrom.endYear = endYear;
 
       const rs = await this.classroomRepository.save(classrom);
       return rs;

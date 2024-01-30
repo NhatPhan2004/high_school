@@ -64,7 +64,11 @@ export default function TeacherManage() {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
-    }).then((res) => setRows(res.data.data.data));
+    }).then((res) => {
+      let data = res.data.data.data;
+      data = data.sort((a, b) => b.id - a.id);
+      setRows(data);
+    });
   }, []);
 
   const addTeacher = (teacher) => {
@@ -76,9 +80,20 @@ export default function TeacherManage() {
       },
       data: teacher,
     }).then(() => {
-      const _new_rows = [...rows];
-      _new_rows.push(teacher);
-      setRows(_new_rows);
+      axios({
+        method: "get",
+        url: `${configs.backendUrl}/api/teacher`,
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res) => {
+        let data = res.data.data.data;
+        data = data.sort((a, b) => b.id - a.id);
+        setRows(data);
+      });
+      // const _new_rows = [...rows];
+      // _new_rows.push(teacher);
+      // setRows(_new_rows);
     });
   };
 
@@ -96,6 +111,7 @@ export default function TeacherManage() {
   };
 
   const modifyTeacher = (teacher) => {
+    console.log(9999, teacher);
     axios({
       method: "patch",
       url: `${configs.backendUrl}/api/teacher/` + teacher.id,
@@ -103,10 +119,24 @@ export default function TeacherManage() {
         Authorization: localStorage.getItem("token"),
       },
       data: teacher,
-    }).then(() => {
-      const _new_rows = rows.filter((item) => item.id !== teacher.id);
-      setRows([..._new_rows, teacher]);
-    });
+    })
+      // .then(() => {
+      //   const _new_rows = rows.filter((item) => item.id !== teacher.id);
+      //   setRows([..._new_rows, teacher]);
+      // });
+      .then(() => {
+        axios({
+          method: "get",
+          url: `${configs.backendUrl}/api/teacher`,
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }).then((res) => {
+          let data = res.data.data.data;
+          data = data.sort((a, b) => b.id - a.id);
+          setRows(data);
+        });
+      });
   };
   const CrudTeacher = (status, teacher) => {
     switch (status) {

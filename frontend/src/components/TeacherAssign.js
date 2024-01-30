@@ -15,7 +15,7 @@ const subjects = [
   "Ngữ văn",
   "Ngoại ngữ",
   "Vật lý",
-  "Hóa học",
+  "Hoá học",
   "Sinh học",
   "Lịch sử",
   "Địa lý",
@@ -121,7 +121,7 @@ export default function TeacherAssign({ classId, close }) {
         return english;
       case "Vật lý":
         return physics;
-      case "Hóa học":
+      case "Hoá học":
         return chemistry;
       case "Sinh học":
         return biology;
@@ -158,7 +158,7 @@ export default function TeacherAssign({ classId, close }) {
       case "Vật lý":
         setPhysics(event.target.value);
         break;
-      case "Hóa học":
+      case "Hoá học":
         setChemistry(event.target.value);
         break;
       case "Sinh học":

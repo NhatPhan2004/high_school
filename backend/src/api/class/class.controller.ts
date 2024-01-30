@@ -289,9 +289,8 @@ export class ClassController {
     @Param() paramss: ParamsUpdate,
   ) {
     try {
-      const data = await this.classService.updateClass({
+      const data = await this.classService.updateClass(paramss.id, {
         ...updateClassdto,
-        ...paramss,
       });
 
       res.json({ data });

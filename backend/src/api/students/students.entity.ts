@@ -55,8 +55,8 @@ export class Student {
   @Column()
   fatherJob: string;
 
-  @Column()
-  fatherPhone: number;
+  @Column({ nullable: true })
+  fatherPhone: string;
 
   @Column()
   fatherDateOfBirth: Date;
@@ -76,8 +76,8 @@ export class Student {
   @Column()
   motherJobAddress: string;
 
-  @Column()
-  motherPhone: number;
+  @Column({ nullable: true })
+  motherPhone: string;
 
   @CreateDateColumn({ name: 'Created_At', type: 'timestamp' })
   createdAt: Date;

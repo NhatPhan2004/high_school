@@ -53,12 +53,14 @@ export default function ClassManage() {
         Authorization: localStorage.getItem("token"),
       },
     }).then((res) => {
-      setRows(res.data.data.data);
+      let data = res.data.data.data;
+      data = data.sort((a, b) => b.id - a.id);
+      setRows(data);
     });
   }, []);
 
   const addClass = (classItem) => {
-    console.log(classItem);
+    // console.log(classItem);
     axios({
       method: "post",
       url: `${configs.backendUrl}/api/class`,
@@ -67,9 +69,17 @@ export default function ClassManage() {
       },
       data: classItem,
     }).then(() => {
-      const _new_rows = [...rows];
-      _new_rows.push(classItem);
-      setRows(_new_rows);
+      axios({
+        method: "get",
+        url: `${configs.backendUrl}/api/class`,
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res) => {
+        let data = res.data.data.data;
+        data = data.sort((a, b) => b.id - a.id);
+        setRows(data);
+      });
     });
   };
 
@@ -94,10 +104,24 @@ export default function ClassManage() {
         Authorization: localStorage.getItem("token"),
       },
       data: classItem,
-    }).then(() => {
-      const _new_rows = rows.filter((item) => item.id !== classItem.id);
-      setRows([..._new_rows, classItem]);
-    });
+    })
+      // .then(() => {
+      //   const _new_rows = rows.filter((item) => item.id !== classItem.id);
+      //   setRows([..._new_rows, classItem]);
+      // });
+      .then(() => {
+        axios({
+          method: "get",
+          url: `${configs.backendUrl}/api/class`,
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }).then((res) => {
+          let data = res.data.data.data;
+          data = data.sort((a, b) => b.id - a.id);
+          setRows(data);
+        });
+      });
   };
   const Crud = (status, classItem) => {
     switch (status) {

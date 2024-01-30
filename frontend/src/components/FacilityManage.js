@@ -64,7 +64,14 @@ export default function FacilityManage() {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
-    }).then((res) => setRows(res.data.data.data));
+    }).then(
+      // (res) => setRows(res.data.data.data)
+      (res) => {
+        let data = res.data.data.data;
+        data = data.sort((a, b) => b.id - a.id);
+        setRows(data);
+      }
+    );
   }, []);
 
   const addFactility = (facility) => {
@@ -76,9 +83,17 @@ export default function FacilityManage() {
       },
       data: facility,
     }).then(() => {
-      const _new_rows = [...rows];
-      _new_rows.push(facility);
-      setRows(_new_rows);
+      axios({
+        method: "get",
+        url: `${configs.backendUrl}/api/facility`,
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res) => {
+        let data = res.data.data.data;
+        data = data.sort((a, b) => b.id - a.id);
+        setRows(data);
+      });
     });
   };
 
@@ -104,8 +119,17 @@ export default function FacilityManage() {
       },
       data: facility,
     }).then(() => {
-      const _new_rows = rows.filter((item) => item.id !== facility.id);
-      setRows([..._new_rows, facility]);
+      axios({
+        method: "get",
+        url: `${configs.backendUrl}/api/facility`,
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }).then((res) => {
+        let data = res.data.data.data;
+        data = data.sort((a, b) => b.id - a.id);
+        setRows(data);
+      });
     });
   };
 

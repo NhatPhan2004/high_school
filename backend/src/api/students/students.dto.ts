@@ -38,7 +38,7 @@ export class StudentRegisterdto {
   fatherJob: string;
 
   @ApiProperty({ example: 4324214 })
-  fatherPhone: number;
+  fatherPhone: string;
 
   @ApiProperty({ example: '1943-09-03' })
   fatherDateOfBirth: Date;
@@ -53,7 +53,7 @@ export class StudentRegisterdto {
   motherJob: string;
 
   @ApiProperty({ example: 243242473 })
-  motherPhone: number;
+  motherPhone: string;
 
   @ApiProperty({ example: '1943-09-03' })
   motherDateOfBirth: Date;

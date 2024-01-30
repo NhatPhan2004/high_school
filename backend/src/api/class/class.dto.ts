@@ -67,7 +67,7 @@ export class TimetableDto {
   @ApiProperty({ example: 'Vật lý' })
   wednesday: string;
 
-  @ApiProperty({ example: 'Hóa học' })
+  @ApiProperty({ example: 'Hoá học' })
   thursday: string;
 
   @ApiProperty({ example: 'Toán học' })

@@ -49,60 +49,63 @@ export default function ClassScoresPrimaryTeacher() {
       )[0];
       axios({
         method: "get",
-        url: `${configs.backendUrl}/api/class/classPrimaryOfTeacher/` + _info.id,
+        url:
+          `${configs.backendUrl}/api/class/classPrimaryOfTeacher/` + _info.id,
         headers: {
           Authorization: localStorage.getItem("token"),
         },
-      }).then((response) => {
-        let _class = response.data.data;
-        axios({
-          method: "get",
-          url: `${configs.backendUrl}/api/student/` + _class.id,
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }).then((res) => {
-          console.log("list student response: ", res.data.data);
-          // Lấy ra danh sách tất cả các học sinh
-          var _students = res.data.data[0];
-          for (var i = 0; i < _students.length; i++) {
-            _students[i]["Toán học"] = "";
-            _students[i]["Ngữ văn"] = "";
-            _students[i]["Ngoại ngữ"] = "";
-            _students[i]["Vật lý"] = "";
-            _students[i]["Hóa học"] = "";
-            _students[i]["Sinh học"] = "";
-            _students[i]["Tin học"] = "";
-            _students[i]["Lịch sử"] = "";
-            _students[i]["Địa lý"] = "";
-            _students[i]["GDCD"] = "";
-            _students[i]["Công nghệ"] = "";
-          }
-          // Lấy ra danh sách điểm của môn học của lớp
+      })
+        .then((response) => {
+          let _class = response.data.data;
           axios({
             method: "get",
-            url:
-              `${configs.backendUrl}/api/score/listScoreOfClassOfTeacherPrimary?classId=` +
-              _class.id +
-              "&subject=chuNhiem",
+            url: `${configs.backendUrl}/api/student/` + _class.id,
             headers: {
               Authorization: localStorage.getItem("token"),
             },
-          }).then((avgResponse) => {
-            let _scores = avgResponse.data.data;
-            console.log("Score: ", _scores);
-            for (var i = 0; i < _scores.length; i++) {
-              for (var j = 0; j < _students.length; j++) {
-                if (_students[j].id == _scores[i].student.id) {
-                  _students[j][_scores[i].subject] = _scores[i].averageScore;
+          }).then((res) => {
+            console.log("list student response: ", res.data.data);
+            // Lấy ra danh sách tất cả các học sinh
+            var _students = res.data.data[0];
+            for (var i = 0; i < _students.length; i++) {
+              _students[i]["Toán học"] = "";
+              _students[i]["Ngữ văn"] = "";
+              _students[i]["Ngoại ngữ"] = "";
+              _students[i]["Vật lý"] = "";
+              _students[i]["Hoá học"] = "";
+              _students[i]["Sinh học"] = "";
+              _students[i]["Tin học"] = "";
+              _students[i]["Lịch sử"] = "";
+              _students[i]["Địa lý"] = "";
+              _students[i]["GDCD"] = "";
+              _students[i]["Công nghệ"] = "";
+            }
+            // Lấy ra danh sách điểm của môn học của lớp
+            axios({
+              method: "get",
+              url:
+                `${configs.backendUrl}/api/score/listScoreOfClassOfTeacherPrimary?classId=` +
+                _class.id +
+                "&subject=chuNhiem",
+              headers: {
+                Authorization: localStorage.getItem("token"),
+              },
+            }).then((avgResponse) => {
+              let _scores = avgResponse.data.data;
+              console.log("Score: ", _scores);
+              for (var i = 0; i < _scores.length; i++) {
+                for (var j = 0; j < _students.length; j++) {
+                  if (_students[j].id == _scores[i].student.id) {
+                    _students[j][_scores[i].subject] = _scores[i].averageScore;
+                  }
                 }
               }
-            }
-            console.log("List students: ", _students);
-            setRows(_students);
+              console.log("List students: ", _students);
+              setRows(_students);
+            });
           });
-        });
-      });
+        })
+        .catch((error) => {});
     });
   }, []);
   return (
@@ -141,7 +144,7 @@ export default function ClassScoresPrimaryTeacher() {
                 {row["Toán học"]}
               </StyledTableCell>
               <StyledTableCell align="center">{row["Vật lý"]}</StyledTableCell>
-              <StyledTableCell align="center">{row["Hóa học"]}</StyledTableCell>
+              <StyledTableCell align="center">{row["Hoá học"]}</StyledTableCell>
               <StyledTableCell align="center">
                 {row["Sinh học"]}
               </StyledTableCell>
@@ -161,7 +164,7 @@ export default function ClassScoresPrimaryTeacher() {
                 {Math.round(
                   ((parseFloat(row["Toán học"] === "" ? 0 : row["Toán học"]) +
                     parseFloat(row["Vật lý"] === "" ? 0 : row["Vật lý"]) +
-                    parseFloat(row["Hóa học"] === "" ? 0 : row["Hóa học"]) +
+                    parseFloat(row["Hoá học"] === "" ? 0 : row["Hoá học"]) +
                     parseFloat(row["Sinh học"] === "" ? 0 : row["Sinh học"]) +
                     parseFloat(row["Tin học"] === "" ? 0 : row["Tin học"]) +
                     parseFloat(row["Ngữ văn"] === "" ? 0 : row["Ngữ văn"]) +
