@@ -1,25 +1,33 @@
 import React, { useState } from "react";
 import { TextField, Button, Box } from "@mui/material";
-
+import { useForm } from "react-hook-form";
 export default function AddFacilityForm({ close, crud, status, info }) {
   const [name, setName] = useState(info === "" ? "" : info.name);
   const [number, setNumber] = useState(info === "" ? "" : info.total);
   const [totalPrice, setTotalPrice] = useState(info === "" ? "" : info.price);
   const [position, setPosition] = useState(info === "" ? "" : info.location);
   const [inputTime, setInputTime] = useState(info === "" ? "" : info.timeIn);
-  const [statusActive, setStatusActive] = useState(info === "" ? "" : info.status);
+  const [statusActive, setStatusActive] = useState(
+    info === "" ? "" : info.status
+  );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const [statusCurrent, SetStatusCurrent] = useState(status);
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmitHook = (e) => {
+    // e.preventDefault();
     const o = {
       name,
-      total : parseInt(number),
-      price : parseInt(totalPrice),
-      location : position,
-      timeIn : inputTime,
-      status : statusActive,
+      total: parseInt(number),
+      price: parseInt(totalPrice),
+      location: position,
+      timeIn: inputTime,
+      status: statusActive,
     };
+
     crud("Add", o);
     close();
   };
@@ -27,12 +35,13 @@ export default function AddFacilityForm({ close, crud, status, info }) {
     const o = {
       id: parseInt(info.id),
       name,
-      total : parseInt(number),
-      price : parseInt(totalPrice),
-      location : position,
-      timeIn : inputTime,
-      status : statusActive,
+      total: parseInt(number),
+      price: parseInt(totalPrice),
+      location: position,
+      timeIn: inputTime,
+      status: statusActive,
     };
+
     crud(status, o);
     close();
   };
@@ -66,11 +75,11 @@ export default function AddFacilityForm({ close, crud, status, info }) {
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" }
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
       }}
       noValidate
       autoComplete="off"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(handleSubmitHook)}
     >
       <div>
         <TextField
@@ -83,9 +92,15 @@ export default function AddFacilityForm({ close, crud, status, info }) {
           name="name"
           required
           autoComplete="off"
-          color = "success"
+          color="success"
           disabled={!(statusCurrent !== "Info")}
+          {...register("name", {
+            required: "* Vui lòng điền tên cơ sở vật chất",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.name && errors.name.message}
           onChange={(e) => {
+            // errors.name = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -98,9 +113,12 @@ export default function AddFacilityForm({ close, crud, status, info }) {
           label="Số lượng"
           name="number"
           autoComplete="off"
-          color = "success"
+          color="success"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("number", {
+            required: "Vui lòng điền số lượng",
+          })}
           onChange={(e) => {
             handleOnChange(e, e.target.name);
           }}
@@ -117,7 +135,7 @@ export default function AddFacilityForm({ close, crud, status, info }) {
           label="Tổng tiền"
           name="totalPrice"
           autoComplete="off"
-          color = "success"
+          color="success"
           disabled={!(statusCurrent !== "Info")}
           required
           onChange={(e) => {
@@ -133,7 +151,7 @@ export default function AddFacilityForm({ close, crud, status, info }) {
           label="Vị trí"
           name="position"
           autoComplete="off"
-          color = "success"
+          color="success"
           disabled={!(statusCurrent !== "Info")}
           required
           onChange={(e) => {
@@ -152,7 +170,7 @@ export default function AddFacilityForm({ close, crud, status, info }) {
           name="inputTime"
           required
           autoComplete="off"
-          color = "success"
+          color="success"
           disabled={!(statusCurrent !== "Info")}
           onChange={(e) => {
             handleOnChange(e, e.target.name);
@@ -168,15 +186,21 @@ export default function AddFacilityForm({ close, crud, status, info }) {
           label="Tình trạng"
           name="statusActive"
           autoComplete="off"
-          color = "success"
+          color="success"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("statusActive", {
+            required: "* Vui lòng điền tình trạng sử dụng",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.statusActive && errors.statusActive.message}
           onChange={(e) => {
+            errors.statusActive = null;
             handleOnChange(e, e.target.name);
           }}
         />
       </div>
-      
+
       <div>
         {statusCurrent !== "Info" && statusCurrent !== "Modify" && (
           <Button

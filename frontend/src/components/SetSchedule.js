@@ -106,7 +106,6 @@ export default function SetSchedule({ classId }) {
       console.log("schedule: ", schedule);
       console.log("Schedule Length: ", schedule.length);
       if (schedule.length > 0) {
-        console.log(222, Object.keys(schedule).sort());
         const ordered = Object.keys(schedule)
           // .sort()
           .reduce((obj, key) => {

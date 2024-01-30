@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
+import { useForm, ErrorMessage } from "react-hook-form";
 
 function AddStudentForm({
   closeAddStudent,
@@ -57,9 +58,21 @@ function AddStudentForm({
   const [username, setUsername] = useState(info === "" ? "" : info.username);
   const [password, setPassword] = useState(info === "" ? "" : info.password);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      email: "",
+    },
+  });
+
   const [statusCurrent, SetStatusCurrent] = useState(status);
-  const handleSubmit = (e) => {
-    e.preventDefault();
+
+  const handleSubmitHook = (e) => {
+    // e.preventDefault();
     const o = {
       name,
       dateOfBirth: birthday,
@@ -189,7 +202,7 @@ function AddStudentForm({
       }}
       noValidate
       autoComplete="off"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(handleSubmitHook)}
     >
       <div>
         <h2>Student</h2>
@@ -214,7 +227,13 @@ function AddStudentForm({
           required
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
+          {...register("name", {
+            required: "* Vui lòng điền họ tên",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.name && errors.name.message}
           onChange={(e) => {
+            errors.name = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -224,12 +243,19 @@ function AddStudentForm({
           fullWidth
           id="birthday"
           value={birthday}
-          label="Ngày sinh MM-DD-YYYY"
+          dateFormat="yyyy-MM-dd"
+          label="Ngày sinh YYYY-MM-DD"
           name="birthday"
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("birthday", {
+            required: "* Vui lòng điền ngày sinh",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.birthday && errors.birthday.message}
           onChange={(e) => {
+            errors.birthday = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -244,7 +270,13 @@ function AddStudentForm({
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("sex", {
+            required: "* Vui lòng điền giới tính",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.sex && errors.sex.message}
           onChange={(e) => {
+            errors.sex = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -283,6 +315,15 @@ function AddStudentForm({
             value={classname}
             label="Lớp"
             name="classname"
+            // {...register("classname", {
+            //   required: "* Vui lòng chọn lớp học",
+            // })}
+            // FormHelperTextProps={{ sx: { color: "red" } }}
+            // helperText={errors?.classname && errors.classname.message}
+            // onChange={(e) => {
+            //   errors.classname = null;
+            //   handleOnChange(e, e.target.name);
+            // }}
             onChange={(e) => {
               handleOnChange(e, e.target.name);
             }}
@@ -303,6 +344,15 @@ function AddStudentForm({
           required
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
+          {...register("email", {
+            required: "* Vui lòng nhập email",
+            pattern: {
+              value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+              message: "* Email không đúng định dạng",
+            },
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.email && errors.email.message}
           onChange={(e) => {
             handleOnChange(e, e.target.name);
           }}
@@ -319,7 +369,13 @@ function AddStudentForm({
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("phone", {
+            required: "* Vui lòng điền số điện thoại",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.phone && errors.phone.message}
           onChange={(e) => {
+            errors.phone = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -336,7 +392,13 @@ function AddStudentForm({
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("address", {
+            required: "* Vui lòng điền địa chỉ",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.address && errors.address.message}
           onChange={(e) => {
+            errors.address = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -346,12 +408,19 @@ function AddStudentForm({
           fullWidth
           id="schoolYear"
           value={schoolYear}
-          label="Ngày nhập học"
+          label="Ngày nhập học YYYY-MM-DD"
+          format="yyyy-MM-dd"
           name="schoolYear"
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("schoolYear", {
+            required: "* Vui lòng điền ngày nhập học",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.schoolYear && errors.schoolYear.message}
           onChange={(e) => {
+            errors.schoolYear = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -364,12 +433,18 @@ function AddStudentForm({
           fullWidth
           id="username"
           value={username}
-          label="Username"
+          label="Tên Đăng nhập"
           name="username"
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("username", {
+            required: "* Vui lòng điền tên đăng nhập",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.username && errors.username.message}
           onChange={(e) => {
+            errors.username = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -384,7 +459,13 @@ function AddStudentForm({
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("password", {
+            required: "* Vui lòng điền mật khẩu",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.password && errors.password.message}
           onChange={(e) => {
+            errors.password = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -403,7 +484,13 @@ function AddStudentForm({
           name="fatherName"
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
+          {...register("fatherName", {
+            required: "* Vui lòng điền họ tên bố",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.fatherName && errors.fatherName.message}
           onChange={(e) => {
+            errors.fatherName = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -434,7 +521,15 @@ function AddStudentForm({
           name="fatherPhoneNumber"
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
+          {...register("fatherPhoneNumber", {
+            required: "* Vui lòng điền số điện thoại bố",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={
+            errors?.fatherPhoneNumber && errors.fatherPhoneNumber.message
+          }
           onChange={(e) => {
+            errors.fatherPhoneNumber = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -451,7 +546,15 @@ function AddStudentForm({
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("fatherDateOfBirth", {
+            required: "* Vui lòng điền ngày sinh của bố",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={
+            errors?.fatherDateOfBirth && errors.fatherDateOfBirth.message
+          }
           onChange={(e) => {
+            errors.fatherDateOfBirth = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -486,7 +589,13 @@ function AddStudentForm({
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("motherName", {
+            required: "* Vui lòng điền họ tên mẹ",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.motherName && errors.motherName.message}
           onChange={(e) => {
+            errors.motherName = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -517,7 +626,15 @@ function AddStudentForm({
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
           required
+          {...register("motherDateOfBirth", {
+            required: "* Vui lòng điền ngày sinh của mẹ",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={
+            errors?.motherDateOfBirth && errors.motherDateOfBirth.message
+          }
           onChange={(e) => {
+            errors.motherDateOfBirth = null;
             handleOnChange(e, e.target.name);
           }}
         />
@@ -534,7 +651,13 @@ function AddStudentForm({
           name="motherPhone"
           autoComplete="off"
           disabled={!(statusCurrent !== "Info")}
+          {...register("motherPhone", {
+            required: "* Vui lòng điền số điện thoại của mẹ",
+          })}
+          FormHelperTextProps={{ sx: { color: "red" } }}
+          helperText={errors?.motherPhone && errors.motherPhone.message}
           onChange={(e) => {
+            errors.motherPhone = null;
             handleOnChange(e, e.target.name);
           }}
         />

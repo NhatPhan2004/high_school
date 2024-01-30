@@ -13,12 +13,18 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { UserContext } from "../../context/UserContext";
 import { configs } from "../../config";
+import { useForm } from "react-hook-form";
 
 function LoginForm(props) {
   const userContext = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const handleOnChange = (event, type) => {
     switch (type) {
@@ -50,8 +56,8 @@ function LoginForm(props) {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST,PATCH,OPTIONS",
   };
-  const handeSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmitHook = async (event) => {
+    // event.preventDefault();
     var data = {
       username: username,
       password: password,
@@ -87,27 +93,7 @@ function LoginForm(props) {
           Vui lòng chọn vai trò để đăng nhập:
         </div>
 
-        <form onSubmit={handeSubmit}>
-          {/* <FormControl sx={{ m: 0, minWidth: 120, minHeight: 30 }} size="small">
-          <InputLabel id="demo-select-small">Role</InputLabel>
-          <Select
-            labelId="demo-select-small"
-            id="demo-select-small"
-            value={role}
-            label="Vai trò"
-            name="role"
-            onChange={(e) => {
-              handleOnChange(e, e.target.name);
-            }}
-          >
-            <MenuItem value={"Admin"}>Admin</MenuItem>
-            <MenuItem value={"Teacher"}>Teacher</MenuItem>
-            <MenuItem value={"Student"}>Student</MenuItem>
-            <MenuItem value={"Parent"}>Parent</MenuItem>
-            <MenuItem value={"Accountant"}>Accountant</MenuItem>
-          </Select>
-        </FormControl> */}
-
+        <form onSubmit={handleSubmit(handleSubmitHook)}>
           <div class="box" style={radioBoxStyle}>
             <label>
               <input
@@ -142,15 +128,6 @@ function LoginForm(props) {
               Học sinh
             </label>
 
-            {/* <input
-              type="radio"
-              id="Student"
-              value={"Student"}
-              checked={role === "Student"}
-              onClick={() => handleRadioClick("Student")}
-            />
-            <label for="Student">Học sinh</label> */}
-
             <label>
               <input
                 style={{ marginRight: "8px" }}
@@ -173,6 +150,9 @@ function LoginForm(props) {
             name="username"
             required
             autoComplete="off"
+            {...register("username", {
+              required: "Vui lòng điền tên đăng nhập",
+            })}
             onChange={(e) => {
               handleOnChange(e, e.target.name);
             }}
@@ -188,10 +168,17 @@ function LoginForm(props) {
             name="password"
             autoComplete="off"
             required
+            {...register("password", {
+              required: "Vui lòng điền mật khẩu",
+            })}
             onChange={(e) => {
               handleOnChange(e, e.target.name);
             }}
           />
+          <small>
+            {errors?.username && errors.username.message}
+            {errors?.password && errors.password.message}
+          </small>
 
           <Button
             style={{ marginTop: "15px" }}
