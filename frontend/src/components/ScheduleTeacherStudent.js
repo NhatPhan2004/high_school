@@ -213,12 +213,14 @@ export default function ScheduleTeacherStudent() {
                 <StyledTableCell component="th" scope="row">
                   {row.lesson}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.monday}</StyledTableCell>
-                <StyledTableCell align="right">{row.tuesday}</StyledTableCell>
-                <StyledTableCell align="right">{row.wednesday}</StyledTableCell>
-                <StyledTableCell align="right">{row.thursday}</StyledTableCell>
-                <StyledTableCell align="right">{row.friday}</StyledTableCell>
-                <StyledTableCell align="right">{row.saturday}</StyledTableCell>
+                <StyledTableCell align="center">{row.monday}</StyledTableCell>
+                <StyledTableCell align="center">{row.tuesday}</StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.wednesday}
+                </StyledTableCell>
+                <StyledTableCell align="center">{row.thursday}</StyledTableCell>
+                <StyledTableCell align="center">{row.friday}</StyledTableCell>
+                <StyledTableCell align="center">{row.saturday}</StyledTableCell>
               </StyledTableRow>
             ))}
         </TableBody>
