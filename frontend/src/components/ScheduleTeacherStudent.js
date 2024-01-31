@@ -58,7 +58,7 @@ export default function ScheduleTeacherStudent() {
             Authorization: localStorage.getItem("token"),
           },
         }).then((response) => {
-          console.log(response.data.data);
+          // console.log(response.data.data);
           setRows(response.data.data);
         });
       });
@@ -122,7 +122,7 @@ export default function ScheduleTeacherStudent() {
           (item) =>
             item.username === JSON.parse(localStorage.getItem("user")).username
         )[0];
-        console.log("Teacher Info: ", _info);
+        // console.log("Teacher Info: ", _info);
 
         axios({
           method: "get",
@@ -134,8 +134,8 @@ export default function ScheduleTeacherStudent() {
           console.log("List class of teacher: ", listClassResponse.data.data);
           var _listClassOfTeacher = listClassResponse.data.data;
 
-          for (let i = 0; i < _listClassOfTeacher.length; i++) {
-            console.log("Class " + i + ": ", _listClassOfTeacher[i]);
+          for (let i = 0; i < _listClassOfTeacher.length; ++i) {
+            // console.log("Class " + i + ": ", _listClassOfTeacher[i]);
 
             axios({
               method: "get",
@@ -146,29 +146,47 @@ export default function ScheduleTeacherStudent() {
                 Authorization: localStorage.getItem("token"),
               },
             }).then((classTable) => {
-              console.log("Class Table: ", classTable.data.data);
+              // console.log("Class Table: ", classTable.data.data);
               var _classTable = classTable.data.data;
               _classTable = _classTable.sort((a, b) => a.lesson - b.lesson);
-              for (var j = 0; j < _classTable.length; j++) {
-                console.log(_classTable[j]);
-                if (_classTable[j].monday == _info.subject)
-                  _rows[j].monday = _listClassOfTeacher[i].name;
-                if (_classTable[j].tuesday == _info.subject)
-                  _rows[j].tuesday = _listClassOfTeacher[i].name;
-                if (_classTable[j].wednesday == _info.subject)
-                  _rows[j].wednesday = _listClassOfTeacher[i].name;
-                if (_classTable[j].thursday == _info.subject)
-                  _rows[j].thursday = _listClassOfTeacher[i].name;
-                if (_classTable[j].friday == _info.subject)
-                  _rows[j].friday = _listClassOfTeacher[i].name;
-                if (_classTable[j].saturday == _info.subject)
-                  _rows[j].saturday = _listClassOfTeacher[i].name;
+              for (var j = 0; j < _classTable.length; ++j) {
+                // console.log(888, _classTable[j]);
+                // console.log(999, _listClassOfTeacher[i]);
+                if (_classTable[j].monday === _info.subject)
+                  _rows[
+                    j
+                  ].monday = `${_listClassOfTeacher[i].name} - ${_listClassOfTeacher[i].location} - ${_info.subject}`;
+                if (_classTable[j].tuesday === _info.subject)
+                  _rows[
+                    j
+                  ].tuesday = `${_listClassOfTeacher[i].name} - ${_listClassOfTeacher[i].location} - ${_info.subject}`;
+                if (_classTable[j].wednesday === _info.subject)
+                  _rows[
+                    j
+                  ].wednesday = `${_listClassOfTeacher[i].name} - ${_listClassOfTeacher[i].location} - ${_info.subject}`;
+                if (_classTable[j].thursday === _info.subject)
+                  _rows[
+                    j
+                  ].thursday = `${_listClassOfTeacher[i].name} - ${_listClassOfTeacher[i].location} - ${_info.subject}`;
+                if (_classTable[j].friday === _info.subject)
+                  _rows[
+                    j
+                  ].friday = `${_listClassOfTeacher[i].name} - ${_listClassOfTeacher[i].location} - ${_info.subject}`;
+                if (_classTable[j].saturday === _info.subject)
+                  _rows[
+                    j
+                  ].saturday = `${_listClassOfTeacher[i].name} - ${_listClassOfTeacher[i].location} - ${_info.subject}`;
               }
               // _rows.sort((a, b) => a.lesson - b.lesson);
               console.log("Teacher time table: ", _rows);
               setRows(_rows);
+              console.log(99999, _rows);
+
+              console.log(8888);
+              // setRows((_rows) => ({ _rows, ..._rows }));
             });
           }
+          // setRows(_rows);
         });
       });
     }
@@ -179,12 +197,12 @@ export default function ScheduleTeacherStudent() {
         <TableHead>
           <TableRow>
             <StyledTableCell>Tiết</StyledTableCell>
-            <StyledTableCell align="right">Thứ hai</StyledTableCell>
-            <StyledTableCell align="right">Thứ ba</StyledTableCell>
-            <StyledTableCell align="right">Thứ tư</StyledTableCell>
-            <StyledTableCell align="right">Thứ năm</StyledTableCell>
-            <StyledTableCell align="right">Thứ sáu</StyledTableCell>
-            <StyledTableCell align="right">Thứ bảy</StyledTableCell>
+            <StyledTableCell align="center">Thứ hai</StyledTableCell>
+            <StyledTableCell align="center">Thứ ba</StyledTableCell>
+            <StyledTableCell align="center">Thứ tư</StyledTableCell>
+            <StyledTableCell align="center">Thứ năm</StyledTableCell>
+            <StyledTableCell align="center">Thứ sáu</StyledTableCell>
+            <StyledTableCell align="center">Thứ bảy</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
